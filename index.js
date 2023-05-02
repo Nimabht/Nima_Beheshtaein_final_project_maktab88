@@ -1,4 +1,4 @@
-// import db from "./database/connection.js";
+import db from "./database/connection.js";
 import express from "express";
 // import cookieParser from "cookie-parser";
 // import { default as connectMongoDBSession } from "connect-mongodb-session";

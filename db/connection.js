@@ -1,6 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 mongoose
-  .connect("mongodb://localhost:27017/onyx-blog-db")
+  .connect("mongodb://localhost:27017/onyx-blog-db", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("[🌿] connected to onyx database!");
   })
@@ -8,4 +12,4 @@ mongoose
     console.log(err);
   });
 
-module.exports = mongoose.connection;
+export default mongoose.connection;

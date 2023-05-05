@@ -1,8 +1,8 @@
-import { User } from "../../models/user";
-import AppError from "../../utils/AppError";
-import isValidObjectId from "../../validators/ObjectId";
+import { User } from "../../models/user.js";
+import AppError from "../../utils/AppError.js";
+import isValidObjectId from "../../validators/ObjectId.js";
 
-export default async function (req, _res, next, userId) {
+export default async function (req, res, next, userId) {
   try {
     if (!isValidObjectId(userId)) {
       const ex = AppError.badRequest("Invalid userId");

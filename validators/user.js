@@ -1,5 +1,3 @@
-const Joi = require("joi");
-
 import Joi from "joi";
 
 export default {

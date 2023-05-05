@@ -39,8 +39,8 @@ export default {
     delete filteredUser.__v;
     res.status(200).send(filteredUser);
   },
-  //   deleteUser: async (req, res, next) => {
-  //     await req.user.deleteOne();
-  //     res.status(204).end();
-  //   },
+  deleteUser: async (req, res, next) => {
+    await res.locals.user.deleteOne();
+    res.status(204).end();
+  },
 };

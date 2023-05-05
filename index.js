@@ -3,6 +3,7 @@ import express from "express";
 // import cookieParser from "cookie-parser";
 // import { default as connectMongoDBSession } from "connect-mongodb-session";
 import globalErrorHandler from "./middlewares/globalErrorHandler.js";
+import apiRouter from "./routes/api.js";
 // import user from "./routes/user.js";
 // import index from "./routes/index.js";
 // import session from "express-session";
@@ -20,6 +21,7 @@ app.get("/", (req, res, next) => {
   res.send("OK");
 });
 
+app.use("/api", apiRouter);
 app.use(globalErrorHandler);
 
 const port = process.env.PORT || 5050;

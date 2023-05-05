@@ -10,5 +10,5 @@ router.param("userId", getUser);
 router.get("/:userId", asyncMiddleware(controllers.getUserById));
 // router.post("/", asyncMiddleware(controllers.createUser));
 router.put("/:userId", asyncMiddleware(controllers.updateUser));
-// router.delete("/:userId", asyncMiddleware(controllers.deleteUser));
+router.delete("/:userId", asyncMiddleware(controllers.deleteUser));
 export default router;

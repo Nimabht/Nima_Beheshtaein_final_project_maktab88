@@ -17,7 +17,7 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.json());
 
-app.get("/", (req, res, next) => {
+app.get("/isConnect", (req, res, next) => {
   res.send("OK");
 });
 

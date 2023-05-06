@@ -8,13 +8,18 @@ import session from "express-session";
 
 const app = express();
 
+if (!process.env.SESSION_SECRET_KEY) {
+  console.log("FATAL ERROR: session secret key is not defined.");
+  process.exit(1);
+}
+
 app.use(express.static("public"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(
   session({
-    secret: "test-secret",
+    secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     cookie: { maxAge: 24 * 60 * 60 * 1000 },
     saveUninitialized: false,

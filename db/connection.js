@@ -1,7 +1,9 @@
+import dotenv from "dotenv";
 import mongoose from "mongoose";
+dotenv.config();
 
 mongoose
-  .connect("mongodb://localhost:27017/onyx-blog-db", {
+  .connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

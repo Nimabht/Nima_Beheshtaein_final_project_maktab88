@@ -1,8 +1,8 @@
 import { User } from "../models/user.js";
-import validators from "../validators/user.js";
+import validators from "../validators/auth.js";
 import AppError from "../utils/AppError.js";
 import bcrypt from "bcrypt";
-// import session from "express-session";
+import session from "express-session";
 export default {
   signupUser: async (req, res, next) => {
     const { error, value } = validators.validateUserForSignup(req.body);
@@ -47,5 +47,29 @@ export default {
     delete filteredUser.__v;
 
     res.status(201).send(filteredUser);
+  },
+  loginUser: async (req, res, next) => {
+    const { error, value } = validators.validateUserForLogin(req.body);
+
+    if (!!error) {
+      const ex = AppError.badRequest(error.details[0].message);
+      return next(ex);
+    }
+    const { username, password } = value;
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      const ex = new AppError("Invalid username or password", "fail", 401);
+      return next(ex);
+    }
+
+    if (!(await user.validatePassword(password))) {
+      const ex = new AppError("Invalid username or password", "fail", 401);
+      return next(ex);
+    }
+    req.session.user = { _id: user._id };
+
+    res.status(202).end();
   },
 };

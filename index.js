@@ -1,6 +1,6 @@
 import db from "./db/connection.js";
 import express from "express";
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 import apiRouter from "./routes/api.js";
 // import index from "./routes/index.js";
@@ -17,6 +17,7 @@ app.use(express.static("public"));
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET_KEY,

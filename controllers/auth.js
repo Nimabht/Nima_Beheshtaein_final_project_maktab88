@@ -18,6 +18,12 @@ export default {
       return next(ex);
     }
 
+    user = await User.findOne({ phoneNumber: value.phoneNumber });
+    if (!!user) {
+      const ex = AppError.badRequest("Use another phone number");
+      return next(ex);
+    }
+
     const {
       firstname,
       lastname,

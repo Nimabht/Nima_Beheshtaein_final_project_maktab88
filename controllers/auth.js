@@ -68,8 +68,12 @@ export default {
       const ex = new AppError("Invalid username or password", "fail", 401);
       return next(ex);
     }
-    req.session.user = { _id: user._id };
+    req.session.user = { _id: user._id, role: user.role };
 
     res.status(202).end();
+  },
+  logoutUser: (req, res, next) => {
+    req.session.destroy();
+    res.status(200).end();
   },
 };

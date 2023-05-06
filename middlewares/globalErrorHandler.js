@@ -22,7 +22,7 @@ const options = {
   },
   dataBase: {
     level: "error",
-    db: "mongodb://localhost:27017/onyx-blog-db",
+    db: process.env.DATABASE_URL,
   },
 };
 

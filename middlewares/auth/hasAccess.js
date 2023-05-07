@@ -7,7 +7,7 @@ export default (req, res, next) => {
     return next();
   }
   //If user is blogger, can access to the next middleware if it's requested its own data
-  if (res.locals.user.id === session.user.id) {
+  if (res.locals.user.id === session.user._id) {
     return next();
   }
 

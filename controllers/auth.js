@@ -42,7 +42,7 @@ export default {
       gender,
       phoneNumber,
       role,
-      avatarFileName: `${gender}-anonymous.webp`,
+      avatarFileName: `${gender}-anonymous.png`,
     });
 
     const salt = await bcrypt.genSalt(10);

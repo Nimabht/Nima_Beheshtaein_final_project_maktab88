@@ -50,7 +50,6 @@ export default {
       user.avatarFileName !== "female-anonymous.png"
     ) {
       const path = join("public", "avatars", user.avatarFileName);
-      console.log(path);
       await fs.unlink(path);
     }
     const filename = basename(req.file.filename);

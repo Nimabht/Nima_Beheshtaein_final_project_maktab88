@@ -60,11 +60,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: function () {
         if (this.gender === "male") {
-          return "anonymous_male_avatar.webp";
+          return "anonymous_male_avatar.png";
         } else if (this.gender === "female") {
-          return "anonymous_female_avatar.webp";
+          return "anonymous_female_avatar.png";
         } else {
-          return "anonymous_male_avatar.webp";
+          return "anonymous_male_avatar.png";
         }
       },
     },

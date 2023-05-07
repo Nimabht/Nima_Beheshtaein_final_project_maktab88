@@ -1,6 +1,8 @@
 import { User } from "../models/user.js";
 import validators from "../validators/user.js";
 import AppError from "../utils/AppError.js";
+import { join, basename } from "node:path";
+import fs from "node:fs/promises";
 // import bcrypt from "bcrypt";
 // import session from "express-session";
 export default {
@@ -38,6 +40,23 @@ export default {
     delete filteredUser.password;
     delete filteredUser.__v;
     res.status(200).send(filteredUser);
+  },
+  updateUserAvatar: async (req, res, next) => {
+    const avatarPath = req.file.path;
+    const user = res.locals.user;
+    // delete the previous avatar
+    if (
+      user.avatarFileName !== "male-anonymous.png" &&
+      user.avatarFileName !== "female-anonymous.png"
+    ) {
+      const path = join("public", "avatars", user.avatarFileName);
+      console.log(path);
+      await fs.unlink(path);
+    }
+    const filename = basename(req.file.filename);
+    user.avatarFileName = filename;
+    await user.save();
+    res.status(200).end();
   },
   deleteUser: async (req, res, next) => {
     await res.locals.user.deleteOne();

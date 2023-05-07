@@ -1,7 +1,6 @@
 node_modules/
-package-lock.json
-package.json
 internalErrorInfo.log
 myCheatSheet.txt
 .eslintrc.json
 .env
+tailwind.config.js

@@ -3,6 +3,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 import apiRouter from "./routes/api.js";
+import index from "./routes/viewPages.js";
 // import index from "./routes/index.js";
 import session from "express-session";
 
@@ -32,6 +33,7 @@ app.get("/isConnect", (req, res, next) => {
 });
 
 app.use("/api", apiRouter);
+app.use("/", index);
 app.use(globalErrorHandler);
 
 const port = process.env.PORT || 5050;

@@ -38,6 +38,23 @@ router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
   });
 });
 
+router.get(
+  "/editInformations",
+  checkSessionValidity,
+  async (req, res, next) => {
+    const { firstname, lastname, username, gender, _id } = await User.findById(
+      req.session.user._id
+    );
+    res.render("editInformation", {
+      firstname,
+      lastname,
+      username,
+      gender,
+      _id,
+    });
+  }
+);
+
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);
 //   res.render("resetPassword", {

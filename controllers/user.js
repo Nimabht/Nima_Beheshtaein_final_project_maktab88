@@ -39,6 +39,10 @@ export default {
     res.status(200).send(filteredUser);
   },
   updateUserAvatar: async (req, res, next) => {
+    if (!req.file) {
+      const ex = AppError.badRequest("File is empty.");
+      return next(ex);
+    }
     const avatarPath = req.file.path;
     const user = res.locals.user;
     // delete the previous avatar

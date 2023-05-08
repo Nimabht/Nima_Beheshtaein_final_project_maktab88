@@ -1,4 +1,5 @@
 import multer from "multer";
+import AppError from "./AppError.js";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -7,10 +8,14 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     if (
       file.originalname === "female-anonymous.png" ||
-      file.originalname === "male-anonymous.png"
-    )
-      cb(new Error("Bad file name!"), null);
-    cb(null, Date.now() + "-" + file.originalname);
+      file.originalname === "male-anonymous.png" ||
+      file.originalname === ""
+    ) {
+      const ex = AppError.badRequest("Bad file name!");
+      cb(ex, null);
+    } else {
+      cb(null, Date.now() + "-" + file.originalname);
+    }
   },
 });
 
@@ -24,7 +29,10 @@ export const upload = multer({
     ) {
       cb(null, true);
     } else {
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"), false);
+      const ex = AppError.badRequest(
+        "Only .png, .jpg and .jpeg format allowed!"
+      );
+      return cb(ex, false);
     }
   },
   limits: {

@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["blogger"],
+      enum: ["blogger", "admin"],
       default: "blogger",
     },
     avatarFileName: {

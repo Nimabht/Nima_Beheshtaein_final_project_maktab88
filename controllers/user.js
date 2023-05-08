@@ -25,17 +25,14 @@ export default {
       const ex = AppError.badRequest("Use another username.");
       return next(ex);
     }
-    const { firstname, lastname, username, gender, phoneNumber, role } = value;
-    const user = res.locals.user;
-    user.set({
-      firstname,
-      lastname,
-      username,
-      gender,
-      phoneNumber,
-      role,
-    });
-    await user.save();
+    const { firstname, lastname, username, gender } = value;
+
+    const user = await User.findOneAndUpdate(
+      { _id: res.locals.user._id },
+      { $set: { firstname, lastname, username, gender } },
+      { new: true }
+    );
+    console.log(user);
     const filteredUser = { ...user.toObject() };
     delete filteredUser.password;
     delete filteredUser.__v;

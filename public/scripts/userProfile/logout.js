@@ -2,7 +2,7 @@ let polipop = new Polipop("polipop", {
   layout: "popups",
   insert: "before",
   pool: 1,
-  life: 2000,
+  life: 7000,
   progressbar: true,
 });
 $("#logout-btn").on("click", () => {

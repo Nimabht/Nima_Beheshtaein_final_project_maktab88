@@ -3,7 +3,7 @@ $(() => {
     layout: "popups",
     insert: "before",
     pool: 5,
-    life: 2000,
+    life: 7000,
     progressbar: true,
   });
   $("form").submit(function (e) {

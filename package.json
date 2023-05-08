@@ -5,7 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "tailwind:dev":"npx tailwindcss -i ./public/styles/css/inputTailwind.css -o ./public/styles/css/outputTailwind.css --watch"
   },
   "author": "nima-beheshtaein",
   "license": "ISC",

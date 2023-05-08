@@ -78,6 +78,28 @@ export default {
 
     res.status(202).end();
   },
+  resetPassword: async (req, res, next) => {
+    const { error } = validators.validateResetPassword(req.body);
+    if (!!error) {
+      const ex = AppError.badRequest(error.details[0].message);
+      return next(ex);
+    }
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findById(req.session.user._id);
+    if (!user) {
+      const ex = new AppError("Unauthorized request", "fail", 401);
+      return next(ex);
+    }
+    if (!(await user.validatePassword(currentPassword))) {
+      const ex = new AppError("Unauthorized request", "fail", 401);
+      return next(ex);
+    }
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+    req.session.destroy();
+    res.status(200).end();
+  },
   logoutUser: (req, res, next) => {
     req.session.destroy();
     res.status(200).end();

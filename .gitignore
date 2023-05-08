@@ -4,3 +4,4 @@ myCheatSheet.txt
 .eslintrc.json
 .env
 public/avatars
+public/styles/css/outputTailwind.css

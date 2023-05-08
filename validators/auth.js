@@ -75,4 +75,25 @@ export default {
 
     return schema.validate(loginInfo, { abortEarly: false });
   },
+  validateResetPassword: (info) => {
+    const schema = Joi.object({
+      currentPassword: Joi.string().required().messages({
+        "any.required": "Current password is required",
+      }),
+      newPassword: Joi.string()
+        .min(8)
+        .max(255)
+        .pattern(/^(?=.*[a-zA-Z])(?=.*\d)/)
+        .required()
+        .messages({
+          "string.base": "new password should be a string",
+          "string.empty": "New password is required",
+          "string.min": "New password should have a minimum length of {#limit}",
+          "any.required": "New password is required",
+          "string.pattern.base":
+            "New password should have at least one letter and one number",
+        }),
+    });
+    return schema.validate(info, { abortEarly: false });
+  },
 };

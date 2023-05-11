@@ -8,13 +8,13 @@ export default (req, res, next) => {
     return next(ex);
   }
 
-  const expirationTime = new Date(session.cookie._expires).getTime();
-  const currentTime = new Date().getTime();
-  if (currentTime >= expirationTime) {
-    // session expired
-    req.session.destroy();
-    const ex = new AppError("Session expired", "fail", 401);
-    return next(ex);
-  }
+  // const expirationTime = new Date(session.cookie._expires).getTime();
+  // const currentTime = new Date().getTime();
+  // if (currentTime >= expirationTime) {
+  //   // session expired
+  //   req.session.destroy();
+  //   const ex = new AppError("Session expired", "fail", 401);
+  //   return next(ex);
+  // }
   next();
 };

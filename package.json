@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon index.js",
-    "tailwind:dev":"npx tailwindcss -i ./public/styles/css/inputTailwind.css -o ./public/styles/css/outputTailwind.css --watch"
+    "start:dev": "nodemon server.js",
+    "tailwind:dev": "npx tailwindcss -i ./public/styles/css/inputTailwind.css -o ./public/styles/css/outputTailwind.css --watch"
   },
   "author": "nima-beheshtaein",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.0",
     "multer": "^1.4.5-lts.1",
+    "sharp": "^0.32.1",
     "winston": "^3.8.2",
     "winston-mongodb": "^5.1.1"
   },

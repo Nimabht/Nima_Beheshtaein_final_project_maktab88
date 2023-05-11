@@ -3,5 +3,5 @@ internalErrorInfo.log
 myCheatSheet.txt
 .eslintrc.json
 .env
+public/styles/css
 public/avatars
-public/styles/css/outputTailwind.css

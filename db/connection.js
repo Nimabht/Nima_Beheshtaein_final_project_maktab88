@@ -1,17 +1,23 @@
-import dotenv from "dotenv";
-import mongoose from "mongoose";
-dotenv.config();
+import pkg from "mongoose";
+const connect = pkg.connect;
+const connection = pkg.connection;
 
-mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("[🌿] connected to onyx database!");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const connectToDatabase = async () => {
+  try {
+    await connect(process.env.DATABASE_URL);
+  } catch (error) {
+    console.log("[-] database connection error:", error);
+    console.info("[i] process terminated.");
+    process.exit(1);
+  }
+};
 
-export default mongoose.connection;
+connection.once("connected", () => {
+  console.log("[🌿] connected to onyx database!");
+});
+
+connection.on("error", (error) => {
+  console.error("[-] database connection error:", error);
+});
+
+export default connectToDatabase;

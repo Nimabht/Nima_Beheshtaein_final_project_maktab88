@@ -10,26 +10,15 @@ const router = express.Router();
 
 router.param("userId", getUser);
 
-router.get(
-  "/:userId",
-  [checkSessionValidity, hasAccess],
-  asyncMiddleware(controllers.getUserById)
-);
-// router.post("/", asyncMiddleware(controllers.createUser));
-router.put(
-  "/:userId",
-  [checkSessionValidity, hasAccess],
-  asyncMiddleware(controllers.updateUser)
-);
-router.delete(
-  "/:userId",
-  [checkSessionValidity, hasAccess],
-  asyncMiddleware(controllers.deleteUser)
-);
+router.use([checkSessionValidity, hasAccess]);
 
+router.get("/:userId", asyncMiddleware(controllers.getUserById));
+// router.post("/", asyncMiddleware(controllers.createUser));
+router.put("/:userId", asyncMiddleware(controllers.updateUser));
+router.delete("/:userId", asyncMiddleware(controllers.deleteUser));
 router.patch(
   "/update-avatar/:userId",
-  [checkSessionValidity, hasAccess, upload.single("avatar")],
+  upload.single("avatar"),
   asyncMiddleware(controllers.updateUserAvatar)
 );
 

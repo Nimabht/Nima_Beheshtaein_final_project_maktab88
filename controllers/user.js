@@ -3,10 +3,9 @@ import validators from "../validators/user.js";
 import AppError from "../utils/AppError.js";
 import { join, basename } from "node:path";
 import fs from "node:fs/promises";
-// import bcrypt from "bcrypt";
-// import session from "express-session";
+import resizeImage from "../utils/resizeImage.js";
+
 export default {
-  // FIXME: should i have createUser service or signup service??
   getUserById: (req, res, next) => {
     res.send(res.locals.user);
   },
@@ -43,7 +42,7 @@ export default {
       const ex = AppError.badRequest("File is empty.");
       return next(ex);
     }
-    const avatarPath = req.file.path;
+
     const user = res.locals.user;
     // delete the previous avatar
     if (
@@ -53,13 +52,16 @@ export default {
       const path = join("public", "avatars", user.avatarFileName);
       await fs.unlink(path);
     }
-    const filename = basename(req.file.filename);
+    const filename = await resizeImage(req.file);
     user.avatarFileName = filename;
     await user.save();
     res.status(200).end();
   },
   deleteUser: async (req, res, next) => {
-    await res.locals.user.deleteOne();
+    const user = res.locals.user;
+    const path = join("public", "avatars", user.avatarFileName);
+    await fs.unlink(path);
+    await user.deleteOne();
     res.status(204).end();
   },
 };

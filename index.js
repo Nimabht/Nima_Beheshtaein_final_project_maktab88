@@ -1,18 +1,14 @@
-import db from "./db/connection.js";
 import express from "express";
 import cookieParser from "cookie-parser";
-import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 import apiRouter from "./routes/api.js";
 import index from "./routes/viewPages.js";
-// import index from "./routes/index.js";
 import session from "express-session";
 
 const app = express();
 
-if (!process.env.SESSION_SECRET_KEY) {
-  console.log("FATAL ERROR: session secret key is not defined.");
-  process.exit(1);
-}
+import globalErrorHandler from "./middlewares/globalErrorHandler.js";
+import connectToDatabase from "./db/connection.js";
+connectToDatabase();
 
 app.use(express.static("public"));
 app.set("views", "./views");
@@ -34,9 +30,7 @@ app.get("/isConnect", (req, res, next) => {
 
 app.use("/api", apiRouter);
 app.use("/", index);
+//FIXME: app not found and unauthorized page
 app.use(globalErrorHandler);
 
-const port = process.env.PORT || 5050;
-app.listen(port, () => {
-  console.log(`[🔥] App is listening on port ${port}...`);
-});
+export default app;

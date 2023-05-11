@@ -42,12 +42,13 @@ export default {
       gender,
       phoneNumber,
       role,
-      avatarFileName: `${gender}-anonymous.png`,
+      avatarFileName: `${gender !== "not-set" ? gender : "male"}-anonymous.png`,
     });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
+    //FIXME: use select instead of filtering using
     const filteredUser = { ...user.toObject() };
     delete filteredUser.password;
     delete filteredUser.__v;

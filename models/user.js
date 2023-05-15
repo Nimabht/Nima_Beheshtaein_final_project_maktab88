@@ -75,6 +75,12 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.virtual("articles", {
+  ref: "Article",
+  localField: "_id",
+  foreignField: "author",
+});
+
 userSchema.methods.validatePassword = async function validatePassword(
   password
 ) {

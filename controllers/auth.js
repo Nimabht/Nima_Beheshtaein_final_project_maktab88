@@ -64,7 +64,7 @@ export default {
     }
     const { username, password } = value;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: username.toLowerCase() });
 
     if (!user) {
       const ex = new AppError("Invalid username or password", "fail", 401);

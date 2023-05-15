@@ -52,7 +52,7 @@ $("#reset-password-btn").on("click", async () => {
       content: "Password changed successfully!",
     });
     setTimeout(() => {
-      window.location.href = "http://localhost:1010/login";
+      window.location.href = "http://localhost:5050/login";
     }, 2000);
   } catch (error) {
     polipop.add({
@@ -102,7 +102,7 @@ $("#delete-account-btn").on("click", async () => {
       content: "User deleted successfully!",
     });
     setTimeout(() => {
-      window.location.href = `http://localhost:1010/login`;
+      window.location.href = `http://localhost:5050/login`;
     }, 2000);
   } catch (error) {
     polipop.add({

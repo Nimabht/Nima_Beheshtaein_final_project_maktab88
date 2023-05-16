@@ -6,6 +6,10 @@ import fs from "node:fs/promises";
 import resizeUserAvatar from "../utils/resizeImage/resizeUserAvatar.js";
 
 export default {
+  getAllUsers: async (req, res, next) => {
+    const users = await User.find();
+    res.send(users);
+  },
   getUserById: (req, res, next) => {
     res.send(res.locals.user);
   },

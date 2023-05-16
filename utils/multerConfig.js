@@ -34,7 +34,16 @@ const muleterFilter = (req, file, cb) => {
   }
 };
 
-export const upload = multer({
+export const uploadAvatar = multer({
+  storage: storage,
+  fileFilter: muleterFilter,
+  limits: {
+    files: 1,
+    fileSize: 1 * 1024 * 1024,
+  },
+});
+
+export const uploadThumbnail = multer({
   storage: storage,
   fileFilter: muleterFilter,
   limits: {

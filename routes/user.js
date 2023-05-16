@@ -4,7 +4,7 @@ import asyncMiddleware from "../middlewares/async.js";
 import getUser from "../middlewares/user/getUser.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import hasAccess from "../middlewares/auth/hasAccess.js";
-import { upload } from "../utils/multerConfig.js";
+import { uploadAvatar } from "../utils/multerConfig.js";
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.put("/:userId", asyncMiddleware(controllers.updateUser));
 router.delete("/:userId", asyncMiddleware(controllers.deleteUser));
 router.patch(
   "/update-avatar/:userId",
-  upload.single("avatar"),
+  uploadAvatar.single("avatar"),
   asyncMiddleware(controllers.updateUserAvatar)
 );
 

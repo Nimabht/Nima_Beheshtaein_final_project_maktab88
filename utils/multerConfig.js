@@ -21,7 +21,7 @@ import AppError from "./AppError.js";
 
 const storage = multer.memoryStorage();
 
-const muleterFilter = (req, file, cb) => {
+const multerFilter = (req, file, cb) => {
   if (
     file.mimetype == "image/png" ||
     file.mimetype == "image/jpg" ||
@@ -36,7 +36,7 @@ const muleterFilter = (req, file, cb) => {
 
 export const uploadAvatar = multer({
   storage: storage,
-  fileFilter: muleterFilter,
+  fileFilter: multerFilter,
   limits: {
     files: 1,
     fileSize: 1 * 1024 * 1024,
@@ -45,7 +45,7 @@ export const uploadAvatar = multer({
 
 export const uploadThumbnail = multer({
   storage: storage,
-  fileFilter: muleterFilter,
+  fileFilter: multerFilter,
   limits: {
     files: 1,
     fileSize: 1 * 1024 * 1024,

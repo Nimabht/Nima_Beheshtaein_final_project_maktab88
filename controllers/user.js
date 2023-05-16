@@ -3,7 +3,7 @@ import validators from "../validators/user.js";
 import AppError from "../utils/AppError.js";
 import { join, basename } from "node:path";
 import fs from "node:fs/promises";
-import resizeImage from "../utils/resizeImage.js";
+import resizeUserAvatar from "../utils/resizeImage/resizeUserAvatar.js";
 
 export default {
   getUserById: (req, res, next) => {
@@ -52,7 +52,7 @@ export default {
       const path = join("public", "avatars", user.avatarFileName);
       await fs.unlink(path);
     }
-    const filename = await resizeImage(req.file);
+    const filename = await resizeUserAvatar(req.file);
     user.avatarFileName = filename;
     await user.save();
     res.status(200).end();

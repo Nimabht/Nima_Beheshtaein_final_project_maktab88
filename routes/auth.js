@@ -2,7 +2,7 @@ import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import controllers from "../controllers/auth.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
-import hasAccess from "../middlewares/auth/hasAccess.js";
+import hasAccess from "../middlewares/auth/hasAccessById.js";
 import getUser from "../middlewares/user/getUser.js";
 const router = express.Router();
 

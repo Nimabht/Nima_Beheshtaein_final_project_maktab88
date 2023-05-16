@@ -19,7 +19,7 @@ export default async (file) => {
     .resize(504, 504)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
-    .toFile(join(__dirname, `../public/avatars/${userAvatarFileName}`));
+    .toFile(join(__dirname, `../../public/avatars/${userAvatarFileName}`));
 
   return userAvatarFileName;
 };

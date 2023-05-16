@@ -1,12 +1,15 @@
-// import validators from "../validators/article.js";
+// import * as cheerio from "cheerio";
+// import sharp from "sharp";
+// import { fileURLToPath } from "url";
 import AppError from "../utils/AppError.js";
-import { join, basename } from "node:path";
+import { join } from "node:path";
 import fs from "node:fs/promises";
 import resizeArticleThumbnail from "../utils/resizeImage/resizeArticleThumbnail.js";
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import validators from "../validators/article.js";
-import { arch } from "node:os";
+
+// const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
   getAllArticles: async (req, res, next) => {
@@ -50,7 +53,27 @@ export default {
 
     res.status(201).send(filteredArticle);
   },
-
+  // test: async (req, res, next) => {
+  //   let htmlContent = req.body.content;
+  //   const $ = cheerio.load(htmlContent);
+  //   const imgTags = $("img");
+  //   imgTags.each((index, element) => {
+  //     const imgSrc = $(element).attr("src");
+  //     const base64Data = imgSrc.replace(/^data:image\/\w+;base64,/, "");
+  //     const imageDataBuffer = Buffer.from(base64Data, "base64");
+  //     return sharp(imageDataBuffer)
+  //       .resize(500, 500)
+  //       .toFormat("jpeg")
+  //       .jpeg({ quality: 90 })
+  //       .toFile(
+  //         join(
+  //           __dirname,
+  //           `../public/articleImages/${Date.now()}-image${index}.jpeg`
+  //         )
+  //       );
+  //   });
+  //   res.status(1).end();
+  // },
   //   updateUser: async (req, res, next) => {
   //     const { error, value } = validators.validateUserForUpdate(req.body);
   //     if (!!error) {

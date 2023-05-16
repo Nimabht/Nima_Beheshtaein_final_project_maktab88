@@ -11,7 +11,6 @@ $(() => {
     };
     if (!!$("#gender-input").val()) fields.gender = $("#gender-input").val();
 
-    console.log(fields);
     let polipop = new Polipop("section", {
       layout: "popups",
       insert: "before",

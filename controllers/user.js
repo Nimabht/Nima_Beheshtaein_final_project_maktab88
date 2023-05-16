@@ -35,7 +35,6 @@ export default {
       { $set: { firstname, lastname, username, gender } },
       { new: true }
     );
-    console.log(user);
     const filteredUser = { ...user.toObject() };
     delete filteredUser.password;
     delete filteredUser.__v;

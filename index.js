@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import apiRouter from "./routes/api.js";
 import index from "./routes/viewPages.js";
 import session from "express-session";
+import notFound from "./middlewares/notFound.js";
 
 const app = express();
 
@@ -30,7 +31,8 @@ app.get("/isConnect", (req, res, next) => {
 
 app.use("/api", apiRouter);
 app.use("/", index);
-//FIXME: app not found and unauthorized page
+//FIXME: app unauthorized page
+app.use(notFound);
 app.use(globalErrorHandler);
 
 export default app;

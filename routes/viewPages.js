@@ -51,7 +51,14 @@ router.get(
     });
   }
 );
-
+router.get("/new-story", checkSessionValidity, async (req, res, next) => {
+  // const { firstname, lastname, username, phoneNumber, role, avatarFileName } =
+  //   await User.findById(req.session.user._id);
+  res.render("new-story", {
+    userLoggedIn: req.session.user,
+    inDashboard: false,
+  });
+});
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);
 //   res.render("resetPassword", {

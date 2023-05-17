@@ -1,10 +1,7 @@
 import express from "express";
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import { User } from "../models/user.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = express.Router();
 
 router.get("/signup", (req, res, next) => {
@@ -12,8 +9,7 @@ router.get("/signup", (req, res, next) => {
     // if the user is logged in, redirect to the dashboard
     return res.redirect("/dashboard");
   }
-  const filePath = join(__dirname, "../views", "signup.html");
-  res.sendFile(filePath);
+  res.render("signup", { userLoggedIn: req.session.user });
 });
 
 router.get("/login", (req, res, next) => {
@@ -21,8 +17,7 @@ router.get("/login", (req, res, next) => {
     // if the user is logged in, redirect to the dashboard
     return res.redirect("/dashboard");
   }
-  const filePath = join(__dirname, "../views", "login.html");
-  res.sendFile(filePath);
+  res.render("login", { userLoggedIn: req.session.user });
 });
 
 router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
@@ -35,6 +30,8 @@ router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
     phoneNumber,
     role,
     avatarFileName,
+    userLoggedIn: req.session.user,
+    inDashboard: true,
   });
 });
 

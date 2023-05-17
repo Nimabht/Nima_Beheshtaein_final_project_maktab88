@@ -8,14 +8,19 @@ import resizeArticleThumbnail from "../utils/resizeImage/resizeArticleThumbnail.
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import validators from "../validators/article.js";
-
+import paginate from "../utils/pagination.js";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
   getAllArticles: async (req, res, next) => {
-    const articles = await Article.find()
+    let { page, pageSize } = req.query;
+    let query = Article.find()
       .populate("author", "-_id firstname lastname")
       .select("-views");
+    if (page && pageSize) {
+      query = paginate(query, page, pageSize);
+    }
+    const articles = await query.exec();
     res.send(articles);
   },
   getArticleById: (req, res, next) => {
@@ -23,9 +28,16 @@ export default {
   },
   getAllUserArticles: async (req, res, next) => {
     const userId = req.session.user._id;
-    const articles = await Article.find({ author: userId })
+    let { page, pageSize } = req.query;
+    page = parseInt(page);
+    pageSize = parseInt(pageSize);
+    let query = Article.find({ author: userId })
       .populate("author", "-_id firstname lastname")
       .select("-views");
+    if (page && pageSize) {
+      query = paginate(query, page, pageSize);
+    }
+    const articles = await query.exec();
     res.send(articles);
   },
   createArticle: async (req, res, next) => {

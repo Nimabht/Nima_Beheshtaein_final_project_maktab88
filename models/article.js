@@ -30,6 +30,15 @@ const articleSchema = new mongoose.Schema(
       ref: "User", // Referencing the User model
       required: true,
     },
+    viewsCount: {
+      type: Number,
+      default: 0,
+    },
+    views: [
+      {
+        type: String,
+      },
+    ],
   },
   {
     timestamps: true,

@@ -13,14 +13,20 @@ import validators from "../validators/article.js";
 
 export default {
   getAllArticles: async (req, res, next) => {
-    const articles = await Article.find().populate(
-      "author",
-      "-_id firstname lastname"
-    );
+    const articles = await Article.find()
+      .populate("author", "-_id firstname lastname")
+      .select("-views");
     res.send(articles);
   },
   getArticleById: (req, res, next) => {
     res.send(res.locals.article);
+  },
+  getAllUserArticles: async (req, res, next) => {
+    const userId = req.session.user._id;
+    const articles = await Article.find({ author: userId })
+      .populate("author", "-_id firstname lastname")
+      .select("-views");
+    res.send(articles);
   },
   createArticle: async (req, res, next) => {
     const { error, value } = validators.validateArticleForCreate(req.body);
@@ -74,33 +80,25 @@ export default {
   //   });
   //   res.status(1).end();
   // },
-  //   updateUser: async (req, res, next) => {
-  //     const { error, value } = validators.validateUserForUpdate(req.body);
-  //     if (!!error) {
-  //       const ex = AppError.badRequest(error.details[0].message);
-  //       return next(ex);
-  //     }
-  //     // Check if username already exists in database
-  //     let existingUser = await User.findOne({
-  //       username: value.username,
-  //       _id: { $ne: res.locals.user._id }, // exclude user with specified id
-  //     });
-  //     if (!!existingUser) {
-  //       const ex = AppError.badRequest("Use another username.");
-  //       return next(ex);
-  //     }
-  //     const { firstname, lastname, username, gender } = value;
-  //     const user = await User.findOneAndUpdate(
-  //       { _id: res.locals.user._id },
-  //       { $set: { firstname, lastname, username, gender } },
-  //       { new: true }
-  //     );
-  //     console.log(user);
-  //     const filteredUser = { ...user.toObject() };
-  //     delete filteredUser.password;
-  //     delete filteredUser.__v;
-  //     res.status(200).send(filteredUser);
-  //   },
+  updateArticle: async (req, res, next) => {
+    console.log(req.body);
+    const { error, value } = validators.validateArticleForUpdate(req.body);
+    if (!!error) {
+      const ex = AppError.badRequest(error.details[0].message);
+      return next(ex);
+    }
+    const { title, sketch, content } = value;
+    const article = await Article.findOneAndUpdate(
+      { _id: res.locals.article._id },
+      { $set: { title, sketch, content } },
+      { new: true }
+    ).select("-views");
+
+    // const filteredUser = { ...article.toObject() };
+    // delete filteredUser.password;
+    // delete filteredUser.__v;
+    res.status(200).send(article);
+  },
   updateArticleThumbnail: async (req, res, next) => {
     if (!req.file) {
       const ex = AppError.badRequest("File is empty.");

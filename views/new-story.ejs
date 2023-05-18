@@ -51,19 +51,40 @@
         font-size: 2rem; /* Adjust the font size as needed */
       }
 
-      /* Add styles for other header tags as needed */
+      .codex-editor__redactor {
+        padding-bottom: 0 !important;
+      }
     </style>
     <title>New story - Onyx</title>
   </head>
-  <body class="h-screen overflow-hidden">
+  <body class="">
     <nav
       class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
       <a class="flex-initial hover:text-white" href="/explore">Explore</a>
       <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
     </nav>
-    <div class="h-screen overflow-hidden flex items-center justify-center">
-      <div class="w-[80rem] min-h-screen p-6 bg-white flex flex-col shadow-2xl">
+    <div class="flex items-center justify-center">
+      <div
+        class="w-[80rem] p-6 bg-white flex flex-col shadow-2xl justify-between min-h-[93vh]">
         <div class="container max-w-screen-lg mx-auto flex flex-col">
+          <div class="mt-10 mb-3 flex gap-32 py-4">
+            <div>
+              <h2 class="font-semibold text-xl text-gray-600 p-[1rem]">
+                Update thumbnail
+              </h2>
+              <div class="md:col-span-3">
+                <input
+                  type="file"
+                  class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2" />
+              </div>
+            </div>
+            <button
+              type="button"
+              id="submit-btn"
+              class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-[23rem] w-[8rem] self-center">
+              Publish
+            </button>
+          </div>
           <div class="flex items-end justify-around mb-10">
             <div class="relative z-0 w-48 h-fit">
               <input
@@ -92,29 +113,8 @@
               >
             </div>
           </div>
-          <div class="h-[30rem]">
+          <div class="">
             <div id="editorjs"></div>
-            <!-- <div id="editor">
-              <h1>Tell your story...</h1>
-            </div> -->
-          </div>
-          <div class="mt-10 mb-3 flex gap-32 py-4">
-            <div>
-              <h2 class="font-semibold text-xl text-gray-600 p-[1rem]">
-                Update thumbnail
-              </h2>
-              <div class="md:col-span-3">
-                <input
-                  type="file"
-                  class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2" />
-              </div>
-            </div>
-            <button
-              type="button"
-              id="submit-btn"
-              class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-[23rem] w-[8rem] self-start">
-              Publish
-            </button>
           </div>
         </div>
         <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">

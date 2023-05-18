@@ -36,6 +36,10 @@ const logger = winston.createLogger({
 });
 
 export default (Error, req, res, next) => {
+  if (Error.statusCode === 401) {
+    res.redirect("http://localhost:5050/login"); // Render login page for unauthorized user
+    return;
+  }
   //logging server side errors (5XX)
   if (!Error.statusCode || Error.statusCode.toString().startsWith("5")) {
     logger.error(Error.message, { metadata: Error });

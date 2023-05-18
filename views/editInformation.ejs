@@ -20,153 +20,163 @@
       }
     </style>
   </head>
-  <body class="h-screen overflow-hidden flex items-center justify-center">
-    <div class="min-h-screen p-6 bg-gray-100 flex flex-col justify-center">
-      <div class="container max-w-screen-lg mx-auto">
-        <div>
-          <h2 class="font-semibold text-xl text-gray-600 mb-6">
-            Edit Information
-          </h2>
+  <body class="h-screen overflow-hidden">
+    <nav
+      class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
+      <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+    </nav>
+    <div class="h-screen overflow-hidden flex items-center justify-center">
+      <div class="min-h-screen p-6 bg-gray-100 flex flex-col justify-center">
+        <div class="container max-w-screen-lg mx-auto">
+          <div>
+            <h2 class="font-semibold text-xl text-gray-600 mb-6">
+              Edit Information
+            </h2>
 
-          <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-              <div class="text-gray-600 flex flex-col justify-between">
-                <div>
-                  <p class="font-medium text-lg">Personal Details</p>
-                  <p>Please fill out all the fields.</p>
+            <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+              <div
+                class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                <div class="text-gray-600 flex flex-col justify-between">
+                  <div>
+                    <p class="font-medium text-lg">Personal Details</p>
+                    <p>Please fill out all the fields.</p>
+                  </div>
                 </div>
-              </div>
 
-              <div class="lg:col-span-2">
-                <div
-                  class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                  <div class="md:col-span-2">
-                    <label for="firstname">First Name</label>
-                    <input
-                      type="text"
-                      name="firstname"
-                      id="firstname-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="<%= firstname %>" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <label for="lastname">Last Name</label>
-                    <input
-                      type="text"
-                      name="lastname"
-                      id="lastname-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="<%= lastname %>" />
-                  </div>
+                <div class="lg:col-span-2">
+                  <div
+                    class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                    <div class="md:col-span-2">
+                      <label for="firstname">First Name</label>
+                      <input
+                        type="text"
+                        name="firstname"
+                        id="firstname-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="<%= firstname %>" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <label for="lastname">Last Name</label>
+                      <input
+                        type="text"
+                        name="lastname"
+                        id="lastname-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="<%= lastname %>" />
+                    </div>
 
-                  <div class="md:col-span-2">
-                    <label for="username">Username</label>
-                    <input
-                      type="text"
-                      name="username"
-                      id="username-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="<%= username %>" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <label for="gender">Gender</label>
-                    <input
-                      type="text"
-                      name="gender"
-                      id="gender-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="<%= gender %>" />
-                  </div>
-                  <div class="md:col-span-5">
-                    <div class="inline-flex items-end">
+                    <div class="md:col-span-2">
+                      <label for="username">Username</label>
+                      <input
+                        type="text"
+                        name="username"
+                        id="username-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="<%= username %>" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <label for="gender">Gender</label>
+                      <input
+                        type="text"
+                        name="gender"
+                        id="gender-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="<%= gender %>" />
+                    </div>
+                    <div class="md:col-span-5">
+                      <div class="inline-flex items-end">
+                        <button
+                          id="update-information-btn"
+                          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-2">
+                          Update information
+                        </button>
+                      </div>
+                    </div>
+                    <div class="md:col-span-5 mt-3">
+                      <h2 class="font-semibold text-xl text-gray-600">
+                        Update avatar
+                      </h2>
+                    </div>
+                    <div class="md:col-span-3">
+                      <input
+                        type="file"
+                        class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2" />
+                    </div>
+                    <div class="md:col-span-2">
                       <button
-                        id="update-information-btn"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-2">
-                        Update information
+                        id="update-avatar-btn"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Update avatar
                       </button>
                     </div>
-                  </div>
-                  <div class="md:col-span-5 mt-3">
-                    <h2 class="font-semibold text-xl text-gray-600">
-                      Update avatar
-                    </h2>
-                  </div>
-                  <div class="md:col-span-3">
-                    <input
-                      type="file"
-                      class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 mt-2" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <button
-                      id="update-avatar-btn"
-                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
-                      Update avatar
-                    </button>
-                  </div>
-                  <div class="md:col-span-3">
-                    <hr
-                      class="mr-4 w-48 h-1 my-4 bg-blue-300 border-0 rounded md:my-3" />
-                  </div>
-                  <div class="md:col-span-5">
-                    <h2 class="font-semibold text-xl text-gray-600">
-                      Reset Password
-                    </h2>
-                  </div>
-                  <div class="md:col-span-2">
-                    <label for="current-password">Current Password</label>
-                    <input
-                      type="password"
-                      name="current-password"
-                      id="current-password-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <label for="new-password">New Password</label>
-                    <input
-                      type="password"
-                      name="new-password"
-                      id="new-password-input"
-                      class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      value="" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <button
-                      id="reset-password-btn"
-                      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
-                      Reset Password
-                    </button>
-                  </div>
-                  <div class="md:col-span-4">
-                    <hr
-                      class="w-48 h-1 my-4 bg-blue-300 border-0 rounded md:my-3" />
-                  </div>
-                  <div class="md:col-span-2">
-                    <button
-                      id="delete-account-btn"
-                      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
-                      Delete my account
-                    </button>
-                  </div>
-                  <div class="md:col-span-1">
-                    <a
-                      href="/dashboard"
-                      class="ml-48 bg-gray-200 hover:bg-gray-300 text-dark font-bold py-2 px-4 rounded-lg">
-                      Close
-                    </a>
+                    <div class="md:col-span-3">
+                      <hr
+                        class="mr-4 w-48 h-1 my-4 bg-blue-300 border-0 rounded md:my-3" />
+                    </div>
+                    <div class="md:col-span-5">
+                      <h2 class="font-semibold text-xl text-gray-600">
+                        Reset Password
+                      </h2>
+                    </div>
+                    <div class="md:col-span-2">
+                      <label for="current-password">Current Password</label>
+                      <input
+                        type="password"
+                        name="current-password"
+                        id="current-password-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <label for="new-password">New Password</label>
+                      <input
+                        type="password"
+                        name="new-password"
+                        id="new-password-input"
+                        class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        value="" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <button
+                        id="reset-password-btn"
+                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Reset Password
+                      </button>
+                    </div>
+                    <div class="md:col-span-4">
+                      <hr
+                        class="w-48 h-1 my-4 bg-blue-300 border-0 rounded md:my-3" />
+                    </div>
+                    <div class="md:col-span-2">
+                      <button
+                        id="delete-account-btn"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
+                        Delete my account
+                      </button>
+                    </div>
+                    <div class="md:col-span-1">
+                      <a
+                        href="/dashboard"
+                        class="ml-48 bg-gray-200 hover:bg-gray-300 text-dark font-bold py-2 px-4 rounded-lg">
+                        Close
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="w-full md:w-6/12 px-4 mx-auto text-center">
-        <div class="text-sm text-blueGray-500 font-semibold py-1">
-          Powered by Onyx company.
+        <div class="w-full md:w-6/12 px-4 mx-auto text-center">
+          <div class="text-sm text-blueGray-500 font-semibold py-1">
+            Powered by Onyx company.
+          </div>
         </div>
       </div>
     </div>
+
     <div class="hidden" id="mydiv" user_id="<%= _id %>"></div>
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"

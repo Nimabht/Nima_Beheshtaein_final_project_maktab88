@@ -25,7 +25,12 @@
   </head>
 
   <body>
-    <%- include('./components/navBar.ejs') %>
+    <nav
+      class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
+      <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <a class="flex-initial hover:text-white" href="/login">Login</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+    </nav>
     <div class="section h-[90vh] text-gray-900 flex justify-center p-[4rem]">
       <div
         class="max-w-screen-xl bg-white shadow sm:rounded-lg flex justify-center flex-1 shadow-2xl">

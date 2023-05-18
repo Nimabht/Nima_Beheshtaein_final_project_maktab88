@@ -24,7 +24,11 @@
     </style>
   </head>
   <body class="h-screen">
-    <%- include('./components/navBar.ejs') %>
+    <nav
+      class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
+      <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+    </nav>
     <div class="overflow-hidden flex items-center justify-center h-[93%]">
       <main class="profile-page">
         <section class="relative block h-500-px">

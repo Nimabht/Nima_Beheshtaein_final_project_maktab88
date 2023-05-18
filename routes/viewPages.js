@@ -1,7 +1,7 @@
 import express from "express";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import { User } from "../models/user.js";
-
+import { Article } from "../models/article.js";
 const router = express.Router();
 
 router.get("/signup", (req, res, next) => {
@@ -23,6 +23,10 @@ router.get("/login", (req, res, next) => {
 router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
   const { firstname, lastname, username, phoneNumber, role, avatarFileName } =
     await User.findById(req.session.user._id);
+
+  const articleCount = await Article.countDocuments({
+    author: req.session.user._id,
+  });
   res.render("userProfile", {
     firstname,
     lastname,
@@ -30,6 +34,7 @@ router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
     phoneNumber,
     role,
     avatarFileName,
+    articleCount,
   });
 });
 

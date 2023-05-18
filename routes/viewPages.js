@@ -55,10 +55,17 @@ router.get(
   }
 );
 router.get("/new-story", checkSessionValidity, async (req, res, next) => {
-  // const { firstname, lastname, username, phoneNumber, role, avatarFileName } =
-  //   await User.findById(req.session.user._id);
-
   res.render("new-story");
+});
+
+router.get("/article/:articleId", async (req, res, next) => {
+  const articleId = req.params.articleId;
+  let isOwner = false;
+  if (!!req.session.user) {
+    let article = await Article.findById(articleId);
+    if (article.author.toString() === req.session.user._id) isOwner = true;
+  }
+  res.render("article", { isOwner });
 });
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);

@@ -16,7 +16,6 @@ export default async (file) => {
   const articleThumbnailName = `${Date.now()}-${originalFileNameWithoutExtension}.jpeg`;
 
   await sharp(file.buffer)
-    .resize(504, 504)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
     .toFile(join(__dirname, `../../public/thumbnails/${articleThumbnailName}`));

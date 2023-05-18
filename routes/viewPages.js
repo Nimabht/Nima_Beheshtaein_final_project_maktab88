@@ -9,7 +9,7 @@ router.get("/signup", (req, res, next) => {
     // if the user is logged in, redirect to the dashboard
     return res.redirect("/dashboard");
   }
-  res.render("signup", { userLoggedIn: req.session.user });
+  res.render("signup");
 });
 
 router.get("/login", (req, res, next) => {
@@ -17,7 +17,7 @@ router.get("/login", (req, res, next) => {
     // if the user is logged in, redirect to the dashboard
     return res.redirect("/dashboard");
   }
-  res.render("login", { userLoggedIn: req.session.user });
+  res.render("login");
 });
 
 router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
@@ -30,8 +30,6 @@ router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
     phoneNumber,
     role,
     avatarFileName,
-    userLoggedIn: req.session.user,
-    inDashboard: true,
   });
 });
 
@@ -54,10 +52,7 @@ router.get(
 router.get("/new-story", checkSessionValidity, async (req, res, next) => {
   // const { firstname, lastname, username, phoneNumber, role, avatarFileName } =
   //   await User.findById(req.session.user._id);
-  res.render("new-story", {
-    userLoggedIn: req.session.user,
-    inDashboard: false,
-  });
+  res.render("new-story");
 });
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);

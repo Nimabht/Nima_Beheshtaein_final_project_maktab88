@@ -8,7 +8,7 @@ export default async function (req, res, next, articleId) {
       const ex = AppError.badRequest("Invalid articleId");
       return next(ex);
     }
-    const article = await Article.findById(articleId).select("-__v -views");
+    const article = await Article.findById(articleId).select("-__v");
     if (!article) {
       const ex = AppError.notFound("Article not found");
       return next(ex);

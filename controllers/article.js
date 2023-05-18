@@ -24,7 +24,10 @@ export default {
     res.send(articles);
   },
   getArticleById: (req, res, next) => {
-    res.send(res.locals.article);
+    const filteredArticle = { ...res.locals.article.toObject() };
+    delete filteredArticle.views;
+    delete filteredArticle.__v;
+    res.send(filteredArticle);
   },
   getAllUserArticles: async (req, res, next) => {
     const userId = req.session.user._id;

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/css/outputTailwind.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/polipop/dist/css/polipop.core.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/polipop/dist/css/polipop.default.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.27.0/dist/editorjs.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2.7.0/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.5.3/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1.3.0/dist/bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <!-- <script src="//cdn.quilljs.com/1.3.6/quill.js"></script> -->
+    <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" /> -->
+    <!-- <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet" /> -->
+    <!-- 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+      type="text/css" /> -->
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-image: url("../styles/images/background.webp");
+      }
+
+      .codex-editor h1 {
+        font-size: 4rem; /* Adjust the font size as needed */
+      }
+
+      .codex-editor h2 {
+        font-size: 3rem; /* Adjust the font size as needed */
+      }
+      .codex-editor h3 {
+        font-size: 2rem; /* Adjust the font size as needed */
+      }
+      .codex-editor__redactor {
+        padding-bottom: 0 !important;
+      }
+    </style>
+    <title>Edit</title>
+  </head>
+  <body class="">
+    <nav
+      class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
+      <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
+      <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+    </nav>
+    <div class="flex items-center justify-center">
+      <div
+        class="w-[80rem] p-6 bg-white flex flex-col shadow-2xl justify-between min-h-[93vh]">
+        <div class="container max-w-screen-lg mx-auto flex flex-col mt-10">
+          <div class="flex items-end justify-around mb-10 gap-10">
+            <div class="relative z-0 w-48 h-fit">
+              <input
+                type="text"
+                id="title-input"
+                class="block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" " />
+              <label
+                for="floating_standard"
+                class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Title</label
+              >
+            </div>
+            <div class="relative z-0 w-[40rem]">
+              <textarea
+                type="text"
+                rows="2"
+                id="sketch-input"
+                class="resize-none block py-2.5 px-0 w-full text-md bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "></textarea>
+
+              <label
+                for="floating_standard"
+                class="absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >Give me a summery of your article...</label
+              >
+            </div>
+            <button
+              type="button"
+              id="submit-btn"
+              class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 w-[9rem] mt-5 float-right">
+              Update article
+            </button>
+          </div>
+          <div class="self-center w-[15rem]">
+            <label for="thumbnail-input" class="cursor-pointer relative">
+              <i
+                class="bi bi-pencil-fill text-white bg-cyan-700 p-3 rounded-full z-10 relative right-[25px] top-[15px]"></i>
+              <img id="thumbnail-out" src="" />
+              <input id="thumbnail-input" type="file" class="hidden" />
+            </label>
+          </div>
+          <div class="w-[20%]">
+            <img src="" id="thumbnail-out" alt="" />
+          </div>
+          <div class="">
+            <div id="editorjs"></div>
+          </div>
+        </div>
+        <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">
+          <div class="text-sm text-blueGray-500 font-semibold py-1">
+            Powered by Onyx company.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/polipop/dist/polipop.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/edit-article/main.js"></script>
+  </body>
+</html>

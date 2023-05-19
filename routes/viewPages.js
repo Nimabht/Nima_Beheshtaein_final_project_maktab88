@@ -2,6 +2,7 @@ import express from "express";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
+import AppError from "../utils/AppError.js";
 const router = express.Router();
 
 router.get("/signup", (req, res, next) => {
@@ -67,6 +68,23 @@ router.get("/article/:articleId", async (req, res, next) => {
   }
   res.render("article", { isOwner });
 });
+
+router.get(
+  "/edit-article/:articleId",
+  checkSessionValidity,
+  async (req, res, next) => {
+    const articleId = req.params.articleId;
+    let article = await Article.findById(articleId);
+    const userIdInArticle = article.author.toString();
+    if (userIdInArticle === req.session.user._id) {
+      return res.render("edit-article");
+    } else {
+      const ex = new AppError("Unauthorized request", "fail", 401);
+      return next(ex);
+    }
+  }
+);
+
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);
 //   res.render("resetPassword", {

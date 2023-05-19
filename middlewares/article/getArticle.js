@@ -9,7 +9,7 @@ export default async function (req, res, next, articleId) {
       return next(ex);
     }
     const article = await Article.findById(articleId)
-      .populate("author", "-_id firstname lastname")
+      .populate("author", "_id firstname lastname")
       .select("-__v");
     if (!article) {
       const ex = AppError.notFound("Article not found");

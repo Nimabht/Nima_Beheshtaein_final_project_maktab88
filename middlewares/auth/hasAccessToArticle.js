@@ -7,7 +7,7 @@ export default (req, res, next) => {
     return next();
   }
   //If user is blogger, can access to the next middleware if it's requested its own data
-  const userIdInArticle = res.locals.article.author.toString();
+  const userIdInArticle = res.locals.article.author._id.toString();
   if (userIdInArticle === session.user._id) {
     return next();
   }

@@ -70,6 +70,7 @@ axios
     } = response.data;
     document.title = sketch;
     $("#article-sketch-out").text(sketch);
+    $("#article-title-out").text(title);
     $("#author-name-out").text(`${author.firstname} ${author.lastname} . `);
     //FIXME: fix profile url must have username in author object
     // $("#author-profile-out").attr("href", `/profile/${author.username}`);
@@ -78,7 +79,7 @@ axios
     $("#article-time-out").text(`${readTime} read . ${date}`);
     $("#article-views-out").text(`Views: ${viewsCount}`);
     $("#article-thumbnail-out").attr("src", `/thumbnails/${thumbnailFileName}`);
-
+    $("#edit-url").attr("href", `/edit-article/${_id}`);
     editor.isReady
       .then(() => {
         console.log("Editor.js is ready to work!");

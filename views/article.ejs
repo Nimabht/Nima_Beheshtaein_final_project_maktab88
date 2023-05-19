@@ -72,8 +72,11 @@
     <div class="flex items-center justify-center">
       <div
         class="w-[80rem] p-6 bg-white flex flex-col shadow-2xl justify-between min-h-[93vh]">
-        <div class="container w-fit mx-auto flex flex-col">
+        <div class="container w-[57%] mx-auto flex flex-col">
           <div class="mt-5 mb-3 flex flex-col gap-5 py-4">
+            <h1
+              class="text-4xl font-bold w-[35rem] mb-[1rem] text-center"
+              id="article-title-out"></h1>
             <h1
               class="text-4xl font-bold w-[35rem]"
               id="article-sketch-out"></h1>
@@ -103,9 +106,7 @@
           </div>
           <div
             class="mr-[9.5rem] text-end text-2xl font-bold <% if (!isOwner) { %> hidden <% } %>">
-            <a class="text-sky-400" href="/api/article/edit/:aiticleId"
-              >Modify</a
-            >
+            <a id="edit-url" class="text-sky-400" href="">Modify</a>
           </div>
         </div>
         <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">

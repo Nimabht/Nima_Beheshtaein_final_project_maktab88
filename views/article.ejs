@@ -105,8 +105,13 @@
             <div id="editorjs"></div>
           </div>
           <div
-            class="mr-[9.5rem] text-end text-2xl font-bold <% if (!isOwner) { %> hidden <% } %>">
+            class="ml-[1rem] text-end text-2xl font-bold <% if (!isOwner) { %> hidden <% } %>">
             <a id="edit-url" class="text-sky-400" href="">Modify</a>
+            <button
+              id="delete-btn"
+              class="text-red-600 bg-transparent border-none cursor-pointer">
+              Delete
+            </button>
           </div>
         </div>
         <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">

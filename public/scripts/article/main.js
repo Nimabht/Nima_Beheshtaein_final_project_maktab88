@@ -93,10 +93,24 @@ axios
     polipop.add({
       type: "error",
       title: "Error",
-      content: error,
+      content: error.response.data.message,
     });
   });
 
-// try {
-//   const response = await axios.get(`/api/article/${articleId}`);
-// } catch (error) {}
+$("#delete-btn").on("click", async () => {
+  try {
+    await axios.delete(`/api/article/${articleId}`);
+    polipop.add({
+      type: "info",
+      title: "Success",
+      content: "Article deleted successfully!",
+    });
+    //FIXME: should redirect back to my articles
+  } catch (error) {
+    polipop.add({
+      type: "error",
+      title: "Error",
+      content: error.response.data.message,
+    });
+  }
+});

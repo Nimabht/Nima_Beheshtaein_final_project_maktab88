@@ -80,7 +80,7 @@ $("#submit-btn").on("click", async () => {
   const thumbnail = fileInput.files[0];
 
   formData.append("title", title);
-  formData.append("sketch", sketch);
+  !!sketch ? formData.append("sketch", sketch) : null;
   formData.append("content", JSON.stringify(content));
   formData.append("thumbnail", thumbnail);
 

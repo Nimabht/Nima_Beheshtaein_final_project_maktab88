@@ -114,7 +114,9 @@ $("#delete-btn").on("click", async () => {
       title: "Success",
       content: "Article deleted successfully!",
     });
-    //FIXME: should redirect back to my articles
+    setTimeout(() => {
+      window.location.href = `/my-articles`;
+    }, 2000);
   } catch (error) {
     polipop.add({
       type: "error",

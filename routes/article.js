@@ -5,7 +5,7 @@ import getArticle from "../middlewares/article/getArticle.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import hasAccessToArticle from "../middlewares/auth/hasAccessToArticle.js";
 import countArticleView from "../middlewares/article/countArticleView.js";
-import { uploadThumbnail } from "../utils/multerConfig.js";
+import { uploadThumbnail, uploadImage } from "../utils/multerConfig.js";
 
 const router = express.Router();
 
@@ -49,4 +49,9 @@ router.patch(
   asyncMiddleware(controllers.updateArticleThumbnail)
 );
 
+router.post(
+  "/uploadImage",
+  [checkSessionValidity, uploadImage.single("image")],
+  asyncMiddleware(controllers.uploadArticleImage)
+);
 export default router;

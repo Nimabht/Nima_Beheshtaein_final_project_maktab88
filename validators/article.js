@@ -5,7 +5,7 @@ Joi.objectId = JoiObjectId(Joi);
 export default {
   validateArticleForCreate: (article) => {
     const schema = Joi.object({
-      title: Joi.string().min(3).max(30).required().messages({
+      title: Joi.string().min(3).max(50).required().messages({
         "string.base": "Title must be a string",
         "string.empty": "Title is required",
         "string.min": "Title must have at least {#limit} characters",
@@ -41,7 +41,7 @@ export default {
   },
   validateArticleForUpdate: (article) => {
     const schema = Joi.object({
-      title: Joi.string().min(3).max(30).required().messages({
+      title: Joi.string().min(3).max(50).required().messages({
         "string.base": "Title must be a string",
         "string.empty": "Title is required",
         "string.min": "Title must have at least {#limit} characters",

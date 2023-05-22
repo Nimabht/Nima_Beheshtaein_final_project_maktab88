@@ -51,3 +51,12 @@ export const uploadThumbnail = multer({
     fileSize: 3 * 1024 * 1024,
   },
 });
+
+export const uploadImage = multer({
+  storage: storage,
+  fileFilter: multerFilter,
+  limits: {
+    files: 1,
+    fileSize: 5 * 1024 * 1024,
+  },
+});

@@ -78,9 +78,10 @@ axios
       viewsCount,
     } = response.data;
     document.title = sketch;
+    $("#user-avatar-out").attr("src", `/avatars/${author.avatarFileName}`);
     $("#article-sketch-out").text(sketch);
     $("#article-title-out").text(title);
-    $("#author-name-out").text(`${author.firstname} ${author.lastname} . `);
+    $("#author-name-out").text(`${author.firstname} ${author.lastname} .`);
     //FIXME: fix profile url must have username in author object
     // $("#author-profile-out").attr("href", `/profile/${author.username}`);
     const readTime = formatReadingTime(JSON.parse(content).blocks);

@@ -85,6 +85,13 @@ router.get(
   }
 );
 
+router.get("/my-articles", checkSessionValidity, async (req, res, next) => {
+  const userId = req.session.user._id;
+  res.render("my-articles", {
+    userId,
+  });
+});
+
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);
 //   res.render("resetPassword", {

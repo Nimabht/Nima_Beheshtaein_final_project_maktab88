@@ -25,6 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1.3.0/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.8.1/dist/bundle.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
@@ -107,7 +108,7 @@
               Update article
             </button>
           </div>
-          <div class="self-center w-[15rem]">
+          <div class="self-center w-[15rem] my-5">
             <label for="thumbnail-input" class="cursor-pointer relative">
               <i
                 class="bi bi-pencil-fill text-white bg-cyan-700 p-3 rounded-full z-10 relative right-[25px] top-[15px]"></i>
@@ -115,10 +116,7 @@
               <input id="thumbnail-input" type="file" class="hidden" />
             </label>
           </div>
-          <div class="w-[20%]">
-            <img src="" id="thumbnail-out" alt="" />
-          </div>
-          <div class="">
+          <div class="border-t pt-4">
             <div id="editorjs"></div>
           </div>
         </div>

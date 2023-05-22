@@ -14,7 +14,7 @@ export default async function (req, res, next, articleId) {
       return next(ex);
     }
     article = await Article.findById(articleId)
-      .populate("author", "_id firstname lastname")
+      .populate("author", "_id firstname lastname avatarFileName")
       .select("-__v");
 
     res.locals.article = article;

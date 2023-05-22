@@ -16,7 +16,7 @@ export default {
   getAllArticles: async (req, res, next) => {
     let { page, pageSize } = req.query;
     let query = Article.find()
-      .populate("author", "-_id firstname lastname")
+      .populate("author", "-_id firstname lastname avatarFileName")
       .select("-views");
     if (page && pageSize) {
       query = paginate(query, page, pageSize);
@@ -40,7 +40,7 @@ export default {
     page = parseInt(page);
     pageSize = parseInt(pageSize);
     let query = Article.find({ author: userId })
-      .populate("author", "-_id firstname lastname")
+      .populate("author", "-_id firstname lastname avatarFileName")
       .select("-views");
     if (page && pageSize) {
       query = paginate(query, page, pageSize);

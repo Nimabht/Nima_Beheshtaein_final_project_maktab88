@@ -21,7 +21,11 @@ export default {
       query = paginate(query, page, pageSize);
     }
     const articles = await query.exec();
-    res.send(articles);
+    res.json({
+      total: await Article.countDocuments(),
+      page: Math.max(1, parseInt(page) || 1),
+      data: articles,
+    });
   },
   getArticleById: (req, res, next) => {
     const filteredArticle = { ...res.locals.article.toObject() };
@@ -41,7 +45,11 @@ export default {
       query = paginate(query, page, pageSize);
     }
     const articles = await query.exec();
-    res.send(articles);
+    res.json({
+      total: await Article.countDocuments({ author: userId }),
+      page: Math.max(1, parseInt(page) || 1),
+      data: articles,
+    });
   },
   createArticle: async (req, res, next) => {
     const { error, value } = validators.validateArticleForCreate(req.body);

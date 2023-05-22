@@ -117,16 +117,32 @@ export default {
   //   res.status(1).end();
   // },
   updateArticle: async (req, res, next) => {
-    console.log(req.body);
     const { error, value } = validators.validateArticleForUpdate(req.body);
     if (!!error) {
       const ex = AppError.badRequest(error.details[0].message);
       return next(ex);
     }
     const { title, sketch, content } = value;
+
+    let newImageFileNames = [];
+    for (const block of JSON.parse(content).blocks) {
+      if (block.type == "image") {
+        const fileUrl = block.data.file.url;
+        const filename = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        newImageFileNames.push(filename);
+      }
+    }
+    const prevImageFileNames = res.locals.article.imageFileNames;
+    const deprecatedImages = prevImageFileNames.filter(
+      (item) => !newImageFileNames.includes(item)
+    );
+    for (const image of deprecatedImages) {
+      const path = join("public", "articleImages", image);
+      await fs.unlink(path);
+    }
     const article = await Article.findOneAndUpdate(
       { _id: res.locals.article._id },
-      { $set: { title, sketch, content } },
+      { $set: { title, sketch, content, imageFileNames: newImageFileNames } },
       { new: true }
     ).select("-views");
 

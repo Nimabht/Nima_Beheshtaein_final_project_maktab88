@@ -5,6 +5,7 @@ import AppError from "../utils/AppError.js";
 import { join } from "node:path";
 import fs from "node:fs/promises";
 import resizeArticleThumbnail from "../utils/resizeImage/resizeArticleThumbnail.js";
+import resizeArticleImage from "../utils/resizeImage/resizeArticleImage.js";
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import validators from "../validators/article.js";
@@ -64,16 +65,28 @@ export default {
     const userId = req.session.user._id;
     const user = await User.findById(userId);
     let { title, sketch, content } = value;
+    //sketch handling
     if (!sketch) {
       sketch = `Read this article that was written by ${user.firstname}...`;
     }
+    //thumbnail handling
     const filename = await resizeArticleThumbnail(req.file);
+    //article Image handling
+    let imageFileNames = [];
+    for (const block of JSON.parse(content).blocks) {
+      if (block.type == "image") {
+        const fileUrl = block.data.file.url;
+        const filename = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+        imageFileNames.push(filename);
+      }
+    }
     const article = new Article({
       title,
       sketch,
       content,
       author: userId,
       thumbnailFileName: filename,
+      imageFileNames,
     });
     await article.save();
     const filteredArticle = { ...article.toObject() };
@@ -138,6 +151,22 @@ export default {
     await article.save();
     res.status(200).end();
   },
+
+  uploadArticleImage: async (req, res, next) => {
+    if (!req.file) {
+      const ex = AppError.badRequest("File is empty.");
+      return next(ex);
+    }
+    const filename = await resizeArticleImage(req.file);
+
+    res.status(200).json({
+      success: 1,
+      file: {
+        url: `/articleImages/${filename}`,
+      },
+    });
+  },
+
   deleteArticle: async (req, res, next) => {
     const article = res.locals.article;
     const path = join("public", "thumbnails", article.thumbnailFileName);

@@ -94,12 +94,16 @@ $("#submit-btn").on("click", async () => {
   formData.append("thumbnail", thumbnail);
 
   try {
-    await axios.post("/api/article", formData);
+    const response = await axios.post("/api/article", formData);
+    console.log(response);
     polipop.add({
       type: "success",
       title: "Success",
       content: "Created successfully!",
     });
+    setTimeout(() => {
+      window.location.href = `/article/${response.data._id}`;
+    }, 2000);
   } catch (error) {
     polipop.add({
       type: "error",

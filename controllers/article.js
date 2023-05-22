@@ -171,6 +171,10 @@ export default {
     const article = res.locals.article;
     const path = join("public", "thumbnails", article.thumbnailFileName);
     await fs.unlink(path);
+    for (const image of article.imageFileNames) {
+      const path = join("public", "articleImages", image);
+      await fs.unlink(path);
+    }
     await article.deleteOne();
     res.status(204).end();
   },

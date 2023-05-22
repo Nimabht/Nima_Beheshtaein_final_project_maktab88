@@ -28,6 +28,15 @@ const editor = new EditorJS({
       class: List,
       inlineToolbar: true,
     },
+    image: {
+      class: ImageTool,
+      config: {
+        endpoints: {
+          byFile: "/api/article/uploadImage", // Your backend file uploader endpoint
+          byUrl: "/articleImages", // Your endpoint that provides uploading by Url
+        },
+      },
+    },
     embed: {
       class: Embed,
       services: {

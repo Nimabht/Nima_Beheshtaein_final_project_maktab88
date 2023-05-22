@@ -93,16 +93,17 @@ const renderContainer = async (articles, totalArticles, currentPage) => {
       const formattedReadingTime = formatReadingTime(content.blocks);
 
       const articleHtml = ` <div class="border-t p-8 border-gray-300 flex my-2">
-              <div class="w-[70%]">
+              <div class="w-[70%]">        
                 <h2 class="text-3xl font-semibold">${title}</h2>
                 <p class="text-gray-500 my-3">
                   ${sketch}
                 </p>
                 <span class="text-gray-500 mr-5">${formattedDate} · ${formattedReadingTime} read</span>
-                <span class=""
+                <span
                   ><a href="/edit-article/${_id}" class="mr-2 underline text-blue-400">Edit</a
                   ><button onclick="deleteArticle('${_id}')" class="underline text-red-400">Delete</button>
                 </span>
+                <a href="/article/${_id}" class="block my-2 text-teal-400	">Read more -></a>
               </div>
               <div>
                 <img

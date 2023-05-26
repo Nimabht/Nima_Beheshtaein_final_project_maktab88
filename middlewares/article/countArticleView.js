@@ -3,14 +3,14 @@ import AppError from "../../utils/AppError.js";
 export default async (req, res, next) => {
   try {
     const article = res.locals.article;
-    const sessionId = req.session ? req.session.id : null;
+    const userId = req.session.user ? req.session.user.id : null;
 
-    if (article.views.includes(sessionId) || article.views.includes(req.ip)) {
+    if (article.views.includes(userId) || article.views.includes(req.ip)) {
       return next();
     }
 
-    if (req.session) {
-      article.views.push(sessionId);
+    if (req.session.user) {
+      article.views.push(userId);
     } else {
       article.views.push(req.ip);
     }

@@ -13,8 +13,8 @@ export default (req, res, next) => {
   if (!!res.locals.article) {
     userIdInModel = res.locals.article.author._id.toString();
   }
-  if (!!!!res.locals.comment) {
-    userIdInModel = res.locals.comment.author._id.toString();
+  if (!!res.locals.comment) {
+    userIdInModel = res.locals.comment.user._id.toString();
   }
   if (userIdInModel === session.user._id) {
     return next();

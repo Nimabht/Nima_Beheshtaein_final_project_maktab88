@@ -3,7 +3,7 @@ import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import getArticle from "../middlewares/article/getArticle.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
-import hasAccessToArticle from "../middlewares/auth/hasAccessToArticle.js";
+import hasAccessToData from "../middlewares/auth/hasAccessToData.js";
 import countArticleView from "../middlewares/article/countArticleView.js";
 import { uploadThumbnail, uploadImage } from "../utils/multerConfig.js";
 
@@ -30,22 +30,18 @@ router.post(
 
 router.put(
   "/:articleId",
-  [checkSessionValidity, hasAccessToArticle],
+  [checkSessionValidity, hasAccessToData],
   asyncMiddleware(controllers.updateArticle)
 );
 
 router.delete(
   "/:articleId",
-  [checkSessionValidity, hasAccessToArticle],
+  [checkSessionValidity, hasAccessToData],
   asyncMiddleware(controllers.deleteArticle)
 );
 router.patch(
   "/update-thumbnail/:articleId",
-  [
-    checkSessionValidity,
-    hasAccessToArticle,
-    uploadThumbnail.single("thumbnail"),
-  ],
+  [checkSessionValidity, hasAccessToData, uploadThumbnail.single("thumbnail")],
   asyncMiddleware(controllers.updateArticleThumbnail)
 );
 

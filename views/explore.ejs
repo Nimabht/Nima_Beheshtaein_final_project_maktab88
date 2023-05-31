@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/css/outputTailwind.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/polipop/dist/css/polipop.core.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/polipop/dist/css/polipop.default.min.css" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-image: url("./styles/images/background.webp");
+      }
+    </style>
+    <title>Explore - Onyx</title>
+  </head>
+  <body class="">
+    <nav
+      class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
+      <!-- <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a> -->
+      <% if (!!isLoggedIn) { %>
+      <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
+      <a class="flex-initial hover:text-white" href="/my-articles"
+        >My articles</a
+      >
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+      <% } else { %>
+      <a class="flex-initial hover:text-white" href="/signup">Signup</a>
+      <a class="flex-initial hover:text-white" href="/login">Login</a>
+      <a class="flex-initial hover:text-white" href="/new-story">Write</a>
+      <% } %>
+    </nav>
+    <div class="flex items-center justify-center">
+      <div
+        class="w-[80rem] p-6 bg-white flex flex-col shadow-2xl justify-between min-h-[84vh]">
+        <div
+          class="container min-h-[84vh] mx-auto flex flex-col w-[50rem] justify-between mt-10">
+          <div id="articles"></div>
+
+          <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">
+            <div class="flex justify-center my-2">
+              <nav>
+                <ul
+                  class="inline-flex items-center -space-x-px"
+                  id="pagination"></ul>
+              </nav>
+            </div>
+            <div class="text-sm text-blueGray-500 font-semibold py-1">
+              Powered by Onyx company.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input
+      type="hidden"
+      class="border-t p-8 border-gray-300 flex my-2 w-[70%] text-3xl font-semibold text-gray-500 my-3 text-gray-500 mr-5 mr-2 underline text-blue-400 underline text-red-400 object-contain w-96 h-36 text-teal-400 z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.min.js"
+      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+      crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/polipop/dist/polipop.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./scripts/explore/utils.js"></script>
+    <script src="./scripts/explore/main.js"></script>
+  </body>
+</html>

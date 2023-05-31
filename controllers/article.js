@@ -10,20 +10,30 @@ import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import validators from "../validators/article.js";
 import paginate from "../utils/pagination.js";
+import articleSearch from "../utils/articleSearch.js";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
   getAllArticles: async (req, res, next) => {
-    let { page, pageSize } = req.query;
-    let query = Article.find()
-      .populate("author", "-_id firstname lastname avatarFileName")
-      .select("-views");
-    if (page && pageSize) {
+    let { page, pageSize, search } = req.query;
+    let query;
+
+    if (!!search) {
+      query = articleSearch(search);
+    } else {
+      query = Article.find()
+        .populate("author", "-_id firstname lastname avatarFileName")
+        .select("-views");
+    }
+    const queryCopy = query.clone();
+    const total = (await queryCopy.exec()).length;
+    if (!!page && !!pageSize) {
       query = paginate(query, page, pageSize);
     }
+
     const articles = await query.exec();
     res.json({
-      total: await Article.countDocuments(),
+      total,
       page: Math.max(1, parseInt(page) || 1),
       data: articles,
     });

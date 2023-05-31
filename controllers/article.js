@@ -31,7 +31,7 @@ export default {
       query = paginate(query, page, pageSize);
     }
 
-    const articles = await query.exec();
+    const articles = await query.sort({ createdAt: -1 }).exec();
     res.json({
       total,
       page: Math.max(1, parseInt(page) || 1),

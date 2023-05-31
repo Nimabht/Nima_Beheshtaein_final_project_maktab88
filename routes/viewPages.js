@@ -92,6 +92,14 @@ router.get("/my-articles", checkSessionValidity, async (req, res, next) => {
   });
 });
 
+router.get("/explore", async (req, res, next) => {
+  let isLoggedIn = false;
+  if (!!req.session.user) {
+    isLoggedIn = true;
+  }
+  res.render("explore", { isLoggedIn });
+});
+
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);
 //   res.render("resetPassword", {

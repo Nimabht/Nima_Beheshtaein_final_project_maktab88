@@ -51,7 +51,13 @@ function formatDate(dateString) {
   }
 }
 
-const renderContainer = async (articles, totalArticles, currentPage) => {
+const renderContainer = async (
+  articles,
+  totalArticles,
+  currentPage,
+  searchQuery
+) => {
+  if (!searchQuery) searchQuery = "";
   $("#articles").empty();
   try {
     for (const article of articles) {
@@ -105,9 +111,11 @@ const renderContainer = async (articles, totalArticles, currentPage) => {
     }
     $(".page-link").on("click", async function () {
       const page = this.id;
-      const response = await axios.get(`/api/article?page=${page}&pageSize=4`);
+      const response = await axios.get(
+        `/api/article?page=${page}&pageSize=4&${searchQuery}`
+      );
       let { data, total } = response.data;
-      renderContainer(data, total, Number(page));
+      renderContainer(data, total, Number(page), searchQuery);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   } catch (error) {
@@ -118,3 +126,14 @@ const renderContainer = async (articles, totalArticles, currentPage) => {
     });
   }
 };
+
+$("#search-form").on("submit", async (e) => {
+  e.preventDefault();
+  const searchQuery = $("#default-search").val();
+  console.log(searchQuery);
+  const response = await axios.get(
+    `/api/article?page=1&pageSize=4&search=${searchQuery}`
+  );
+  let { data, total, page } = response.data;
+  renderContainer(data, total, Number(page), searchQuery);
+});

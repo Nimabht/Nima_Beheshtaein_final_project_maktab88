@@ -131,7 +131,7 @@ $("#submit-btn").on("click", async () => {
       title: "Success",
       content: "Updated successfully!",
     });
-    // window.location.href = `/article/${articleId}`;
+    window.location.href = `/article/${articleId}`;
   } catch (error) {
     console.log(error);
     polipop.add({

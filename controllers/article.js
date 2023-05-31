@@ -51,6 +51,13 @@ export default {
     pageSize = parseInt(pageSize);
     let query = Article.find({ author: userId })
       .populate("author", "-_id firstname lastname avatarFileName")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "_id firstname lastname avatarFileName",
+        },
+      })
       .select("-views");
     if (page && pageSize) {
       query = paginate(query, page, pageSize);

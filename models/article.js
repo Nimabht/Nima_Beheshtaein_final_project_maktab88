@@ -39,6 +39,12 @@ const articleSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment", // Referencing the Comment model
+      },
+    ],
   },
   {
     timestamps: true,

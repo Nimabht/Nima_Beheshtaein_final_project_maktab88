@@ -6,6 +6,7 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 3,
+      maxlength: 500,
     },
     article: {
       type: mongoose.Schema.Types.ObjectId,

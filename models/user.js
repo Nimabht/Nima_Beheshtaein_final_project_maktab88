@@ -81,6 +81,12 @@ userSchema.virtual("articles", {
   foreignField: "author",
 });
 
+userSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "user",
+});
+
 userSchema.methods.validatePassword = async function validatePassword(
   password
 ) {

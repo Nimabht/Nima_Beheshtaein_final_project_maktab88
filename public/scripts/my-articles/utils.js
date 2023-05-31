@@ -116,7 +116,7 @@ const renderContainer = async (articles, totalArticles, currentPage) => {
     //Pagination part
     $("#pagination").empty();
     const pagination = $("#pagination");
-    totalPages = Math.ceil(totalArticles / 6);
+    totalPages = Math.ceil(totalArticles / 4);
     for (let i = 1; i <= totalPages; i++) {
       let li = $('<li class="cursor-pointer"></li>');
       if (i === currentPage) {

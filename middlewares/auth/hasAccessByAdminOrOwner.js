@@ -1,6 +1,5 @@
 import AppError from "../../utils/AppError.js";
 
-//FIXME: if admin pass this middleware (that it passes through) he can edit the article or the comment. i should stop this and only give access to the admin for deleting the article or the comment.
 export default (req, res, next) => {
   const session = req.session;
   //If user is admin, can access to the next middleware
@@ -20,6 +19,6 @@ export default (req, res, next) => {
     return next();
   }
 
-  const ex = new AppError("Unauthorized", "fail", 401);
+  const ex = new AppError("Forbidden", "fail", 403);
   return next(ex);
 };

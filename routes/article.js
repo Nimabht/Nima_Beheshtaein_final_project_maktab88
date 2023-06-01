@@ -3,10 +3,11 @@ import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import getArticle from "../middlewares/article/getArticle.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
-import hasAccessToData from "../middlewares/auth/hasAccessToData.js";
+// import hasAccessToData from "../middlewares/auth/hasAccessToData.js";
 import countArticleView from "../middlewares/article/countArticleView.js";
 import { uploadThumbnail, uploadImage } from "../utils/multerConfig.js";
-
+import hasAccessByOwning from "../middlewares/auth/hasAccessByOwning.js";
+import hasAccessByAdminOrOwner from "../middlewares/auth/hasAccessByAdminOrOwner.js";
 const router = express.Router();
 
 router.param("articleId", getArticle);
@@ -30,18 +31,22 @@ router.post(
 
 router.put(
   "/:articleId",
-  [checkSessionValidity, hasAccessToData],
+  [checkSessionValidity, hasAccessByOwning],
   asyncMiddleware(controllers.updateArticle)
 );
 
 router.delete(
   "/:articleId",
-  [checkSessionValidity, hasAccessToData],
+  [checkSessionValidity, hasAccessByAdminOrOwner],
   asyncMiddleware(controllers.deleteArticle)
 );
 router.patch(
   "/update-thumbnail/:articleId",
-  [checkSessionValidity, hasAccessToData, uploadThumbnail.single("thumbnail")],
+  [
+    checkSessionValidity,
+    hasAccessByOwning,
+    uploadThumbnail.single("thumbnail"),
+  ],
   asyncMiddleware(controllers.updateArticleThumbnail)
 );
 

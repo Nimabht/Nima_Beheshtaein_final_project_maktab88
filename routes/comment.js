@@ -1,10 +1,10 @@
 import controllers from "../controllers/comment.js";
 import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
-// import getComment from "../middlewares/article/getArticle.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
-import hasAccessToData from "../middlewares/auth/hasAccessToData.js";
 import getComment from "../middlewares/comment/getComment.js";
+import hasAccessByOwning from "../middlewares/auth/hasAccessByOwning.js";
+import hasAccessByAdminOrOwner from "../middlewares/auth/hasAccessByAdminOrOwner.js";
 
 const router = express.Router();
 
@@ -25,13 +25,13 @@ router.post(
 
 router.put(
   "/:commentId",
-  [checkSessionValidity, hasAccessToData],
+  [checkSessionValidity, hasAccessByOwning],
   asyncMiddleware(controllers.updateComment)
 );
 
 router.delete(
   "/:commentId",
-  [checkSessionValidity, hasAccessToData],
+  [checkSessionValidity, hasAccessByAdminOrOwner],
   asyncMiddleware(controllers.deleteComment)
 );
 // router.patch(

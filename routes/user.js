@@ -3,10 +3,10 @@ import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import getUser from "../middlewares/user/getUser.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
-import hasAccessById from "../middlewares/auth/hasAccessById.js";
 import hasAccessByRole from "../middlewares/auth/hasAccessByRole.js";
 import { uploadAvatar } from "../utils/multerConfig.js";
-
+import hasAccessByOwning from "../middlewares/auth/hasAccessByOwning.js";
+import hasAccessByAdminOrOwner from "../middlewares/auth/hasAccessByAdminOrOwner.js";
 const router = express.Router();
 
 router.param("userId", getUser);
@@ -18,23 +18,23 @@ router.get(
 );
 router.get(
   "/:userId",
-  [checkSessionValidity, hasAccessById],
+  [checkSessionValidity, hasAccessByAdminOrOwner],
   asyncMiddleware(controllers.getUserById)
 );
-// router.post("/", asyncMiddleware(controllers.createUser));
+
 router.put(
   "/:userId",
-  [checkSessionValidity, hasAccessById],
+  [checkSessionValidity, hasAccessByOwning],
   asyncMiddleware(controllers.updateUser)
 );
 router.delete(
   "/:userId",
-  [checkSessionValidity, hasAccessById],
+  [checkSessionValidity, hasAccessByAdminOrOwner],
   asyncMiddleware(controllers.deleteUser)
 );
 router.patch(
   "/update-avatar/:userId",
-  [checkSessionValidity, hasAccessById, uploadAvatar.single("avatar")],
+  [checkSessionValidity, hasAccessByOwning, uploadAvatar.single("avatar")],
   asyncMiddleware(controllers.updateUserAvatar)
 );
 

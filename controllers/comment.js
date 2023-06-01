@@ -10,6 +10,11 @@ export default {
     delete filteredComment.__v;
     res.send(filteredComment);
   },
+  getAllUserComments: async (req, res, next) => {
+    const userId = req.session.user._id;
+    let comments = await Comment.find({ user: userId });
+    res.send(comments);
+  },
   createComment: async (req, res, next) => {
     const { error, value } = validators.validateCommentForCreate(req.body);
     if (!!error) {

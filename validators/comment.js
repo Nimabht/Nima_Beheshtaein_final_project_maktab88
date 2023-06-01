@@ -23,11 +23,11 @@ export default {
   validateCommentForUpdate: (comment) => {
     const schema = Joi.object({
       content: Joi.string().min(3).max(500).required().messages({
-        "string.base": "Title must be a string",
-        "string.empty": "Title is required",
-        "string.min": "Title must have at least {#limit} characters",
-        "string.max": "Title can have at most {#limit} characters",
-        "any.required": "Title is required",
+        "string.base": "Content must be a string",
+        "string.empty": "Content is required",
+        "string.min": "Content must have at least {#limit} characters",
+        "string.max": "Content can have at most {#limit} characters",
+        "any.required": "Content is required",
       }),
     });
     return schema.validate(comment, { abortEarly: false });

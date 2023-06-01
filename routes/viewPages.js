@@ -66,7 +66,7 @@ router.get("/article/:articleId", async (req, res, next) => {
     let article = await Article.findById(articleId);
     if (article.author.toString() === req.session.user._id) isOwner = true;
   }
-  res.render("article", { isOwner });
+  res.render("article", { isOwner, user: req.session.user });
 });
 
 router.get(

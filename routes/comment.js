@@ -11,11 +11,11 @@ const router = express.Router();
 router.param("commentId", getComment);
 
 // router.get("", asyncMiddleware(controllers.getAllArticles));
-// router.get(
-//   "/my-articles",
-//   checkSessionValidity,
-//   asyncMiddleware(controllers.getAllUserArticles)
-// );
+router.get(
+  "/my-comments",
+  checkSessionValidity,
+  asyncMiddleware(controllers.getAllUserComments)
+);
 router.get("/:commentId", asyncMiddleware(controllers.getCommentById));
 router.post(
   "/",

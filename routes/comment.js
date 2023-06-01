@@ -16,11 +16,7 @@ router.param("commentId", getComment);
 //   checkSessionValidity,
 //   asyncMiddleware(controllers.getAllUserArticles)
 // );
-// router.get(
-//   "/:articleId",
-//   countArticleView,
-//   asyncMiddleware(controllers.getArticleById)
-// );
+router.get("/:commentId", asyncMiddleware(controllers.getCommentById));
 router.post(
   "/",
   checkSessionValidity,

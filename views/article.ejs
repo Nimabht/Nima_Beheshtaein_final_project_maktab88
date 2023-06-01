@@ -62,12 +62,12 @@
     <nav
       class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
       <a class="flex-initial hover:text-white" href="/explore">Explore</a>
-      <% if (isOwner) { %>
+      <% if (user) { %>
       <a class="flex-initial hover:text-white" href="/dashboard">Dashboard</a>
       <a class="flex-initial hover:text-white" href="/my-articles"
         >My articles</a
       >
-      <% } %> <% if (!isOwner) { %>
+      <% } %> <% if (!user) { %>
       <a class="flex-initial hover:text-white" href="/signup">Signup</a>
       <a class="flex-initial hover:text-white" href="/login">Login</a>
       <% } %>
@@ -123,6 +123,152 @@
               Delete
             </button>
           </div>
+          <!-- drawer init and show -->
+          <div class="mt-5 ml-10">
+            <button
+              data-drawer-target="drawer-navigation"
+              data-drawer-show="drawer-navigation"
+              aria-controls="drawer-navigation"
+              class="text-gray-500 rounded cursor-pointer hover:text-gray-900">
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"></path>
+              </svg>
+            </button>
+            <span id="comment-count"></span>
+          </div>
+        </div>
+        <!-- drawer component -->
+        <div
+          id="drawer-navigation"
+          class="fixed top-0 left-0 z-40 w-[35rem] h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white drop-shadow-2xl"
+          tabindex="-1"
+          aria-labelledby="drawer-navigation-label">
+          <h3
+            id="drawer-navigation-label"
+            class="font-semibold text-3xl text-gray-500 uppercase"></h3>
+          <button
+            type="button"
+            data-drawer-hide="drawer-navigation"
+            aria-controls="drawer-navigation"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center">
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
+            </svg>
+          </button>
+          <div class="py-4 overflow-y-auto">
+            <form id="comment-form">
+              <div
+                class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50">
+                <div class="px-4 py-2 bg-white rounded-t-lg">
+                  <label for="comment" class="sr-only">Your comment</label>
+                  <textarea <% if (!user) { %>
+                   readonly
+                  <% } %>
+                  
+                    id="comment-input"
+                    rows="4"
+                    minlength="3"
+                    maxlength="500"
+                    class="outline-0 resize-y w-full px-0 text-sm text-gray-900 bg-white border-0 focus:ring-0"
+                    placeholder="Write a comment..."
+                    required></textarea
+                  >
+                </div>
+                <div
+                  class="flex items-center justify-between px-3 py-2 border-t">
+                  <button <% if (!user) { %>
+                    disabled <% } %> type="submit" class="inline-flex
+                    items-center py-2.5 px-4 text-xs font-medium text-center
+                    text-white bg-blue-700 rounded-lg focus:ring-4
+                    focus:ring-blue-200 hover:bg-blue-800 disabled:opacity-75">
+                    Post comment
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div
+              id="comments"
+              class="border-t border-black mt-3 py-5 flex flex-col justify-center items-center">
+              <!-- <div class="w-[90%] flex flex-col p-5 shadow-xl my-5">
+                <form id="comment-form ">
+                  <div class="w-full mb-4 rounded-lg my-5 bg-white">
+                    <div class="px-4 py-2 bg-white">
+                      <label for="comment" class="sr-only">Your comment</label>
+                      <textarea
+                        id="comment-update-input"
+                        value="asodjasoidjasoidj"
+                        rows="4"
+                        minlength="3"
+                        maxlength="500"
+                        class="outline-0 resize-y w-full px-0 text-sm text-gray-900 bg-white border-0 focus:ring-0"
+                        placeholder="Write a comment..."
+                        required></textarea>
+                    </div>
+                    <div
+                      class="flex bg-white items-center justify-between px-3 py-2 border-t mt-5">
+                      <button
+                        type="submit"
+                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
+                        Update comment
+                      </button>
+                      <button
+                        type="submit"
+                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 hover:bg-red-800">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div> -->
+              <!-- <div class="w-[90%] flex flex-col p-5 shadow-xl my-5">
+                <div class="flex flex-row mb-5">
+                  <img class="w-10 h-10 rounded-full mr-2" src="" />
+                  <div>
+                    <p class="text-black">Nima beheshtaein</p>
+                    <p class="text-gray">2 month ago</p>
+                  </div>
+                </div>
+                <div>
+                  <p>
+                    Wonderful and heart-warming read… it made me smile and nod
+                    in agreement! Yes, sometimes we DO want to read about a
+                    relationship that is working. Good for both of you, and
+                    thank you for sharing 😊
+                  </p>
+                </div>
+                <div class="mt-5">
+                  <button
+                    id="edit-comment-btn"
+                    class="text-blue-600 bg-transparent border-none cursor-pointer">
+                    Edit
+                  </button>
+                  <button
+                    id="delete-comment-btn"
+                    class="text-red-600 bg-transparent border-none cursor-pointer">
+                    Delete
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
         </div>
         <div class="w-full md:w-6/12 px-4 mx-auto text-center mt-[3rem]">
           <div class="text-sm text-blueGray-500 font-semibold py-1">
@@ -132,10 +278,15 @@
       </div>
     </div>
 
+    <script>
+      const viewerId = "<%= user?._id || ''%>";
+      const viewerRole = "<%= user?.role || ''%>";
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
       crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="https://unpkg.com/polipop/dist/polipop.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/article/utils.js"></script>

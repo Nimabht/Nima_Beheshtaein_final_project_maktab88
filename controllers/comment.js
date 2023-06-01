@@ -5,6 +5,11 @@ import { Comment } from "../models/comment.js";
 import validators from "../validators/comment.js";
 
 export default {
+  getCommentById: (req, res, next) => {
+    const filteredComment = { ...res.locals.comment.toObject() };
+    delete filteredComment.__v;
+    res.send(filteredComment);
+  },
   createComment: async (req, res, next) => {
     const { error, value } = validators.validateCommentForCreate(req.body);
     if (!!error) {

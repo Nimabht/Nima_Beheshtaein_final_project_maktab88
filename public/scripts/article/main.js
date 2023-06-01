@@ -1,7 +1,7 @@
 let polipop = new Polipop("section", {
   layout: "popups",
   insert: "before",
-  pool: 1,
+  pool: 2,
   life: 5000,
   progressbar: true,
 });
@@ -98,6 +98,7 @@ axios
       .catch((reason) => {
         console.log(`Editor.js initialization failed because of ${reason}`);
       });
+    renderComments();
   })
   .catch((error) => {
     polipop.add({
@@ -118,6 +119,25 @@ $("#delete-btn").on("click", async () => {
     setTimeout(() => {
       window.location.href = `/my-articles`;
     }, 2000);
+  } catch (error) {
+    polipop.add({
+      type: "error",
+      title: "Error",
+      content: error.response.data.message,
+    });
+  }
+});
+
+$("#comment-form").on("submit", async (e) => {
+  e.preventDefault();
+  const content = $("#comment-input").val();
+  $("#comment-input").val("");
+  try {
+    await axios.post(`/api/comment`, {
+      content,
+      articleId,
+    });
+    renderComments();
   } catch (error) {
     polipop.add({
       type: "error",

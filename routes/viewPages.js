@@ -3,6 +3,7 @@ import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import AppError from "../utils/AppError.js";
+import hasAccessByRole from "../middlewares/auth/hasAccessByRole.js";
 const router = express.Router();
 
 router.get("/signup", (req, res, next) => {
@@ -99,6 +100,14 @@ router.get("/explore", async (req, res, next) => {
   }
   res.render("explore", { isLoggedIn });
 });
+
+router.get(
+  "/admin-panel",
+  [checkSessionValidity, hasAccessByRole(["admin"])],
+  async (req, res, next) => {
+    res.render("admin-panel");
+  }
+);
 
 // router.get("/resetpassword", checkSessionId, async (req, res, next) => {
 //   const { _id } = await User.findById(req.session.user._id);

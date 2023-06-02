@@ -9,8 +9,8 @@ export default async () => {
       const newAdminUser = new User({
         firstname: "Admin",
         lastname: "Admin",
-        username: "admin",
-        password: "password",
+        username: process.env.ADMIN_USERNAME,
+        password: process.env.ADMIN_PASSWORD,
         phoneNumber: "09350000000",
         role: "admin",
       });

@@ -67,12 +67,12 @@ export default {
     const user = await User.findOne({ username: username.toLowerCase() });
 
     if (!user) {
-      const ex = new AppError("Invalid username or password", "fail", 401);
+      const ex = AppError.unAuthorized("Invalid username or password");
       return next(ex);
     }
 
     if (!(await user.validatePassword(password))) {
-      const ex = new AppError("Invalid username or password", "fail", 401);
+      const ex = AppError.unAuthorized("Invalid username or password");
       return next(ex);
     }
     req.session.user = { _id: user._id, role: user.role };
@@ -88,11 +88,11 @@ export default {
     const { currentPassword, newPassword } = req.body;
     const user = await User.findById(req.session.user._id);
     if (!user) {
-      const ex = new AppError("Unauthorized request", "fail", 401);
+      const ex = AppError.unAuthorized("Unauthorized");
       return next(ex);
     }
     if (!(await user.validatePassword(currentPassword))) {
-      const ex = new AppError("Unauthorized request", "fail", 401);
+      const ex = AppError.unAuthorized("Unauthorized");
       return next(ex);
     }
     const salt = await bcrypt.genSalt(10);

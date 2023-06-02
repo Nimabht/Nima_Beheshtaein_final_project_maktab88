@@ -9,6 +9,6 @@ export default (allowedRoles) => (req, res, next) => {
     return next();
   }
 
-  const error = new AppError("Unauthorized", "fail", 401);
-  return next(error);
+  const ex = AppError.Forbidden("Forbidden");
+  return next(ex);
 };

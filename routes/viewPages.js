@@ -80,7 +80,7 @@ router.get(
     if (userIdInArticle === req.session.user._id) {
       return res.render("edit-article");
     } else {
-      const ex = new AppError("Unauthorized request", "fail", 401);
+      const ex = new AppError("Forbidden", "fail", 403);
       return next(ex);
     }
   }

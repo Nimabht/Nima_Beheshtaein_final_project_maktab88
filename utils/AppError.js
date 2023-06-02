@@ -15,6 +15,14 @@ class AppError extends Error {
     return new AppError(message, "fail", 404);
   }
 
+  static unAuthorized(message) {
+    return new AppError(message, "fail", 401);
+  }
+
+  static Forbidden(message) {
+    return new AppError(message, "fail", 403);
+  }
+
   static internal(message) {
     return new AppError(message, "error", 500);
   }

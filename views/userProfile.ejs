@@ -27,6 +27,9 @@
     <nav
       class="bg-gray-800 flex text-slate-300 h-[4rem] justify-center items-center gap-10 rounded-b-full">
       <a class="flex-initial hover:text-white" href="/explore">Explore</a>
+      <% if (role==='admin') { %>
+      <a class="flex-initial hover:text-white" href="/admin">Admin panel</a>
+      <% } %>
       <a class="flex-initial hover:text-white" href="/my-articles"
         >My articles</a
       >

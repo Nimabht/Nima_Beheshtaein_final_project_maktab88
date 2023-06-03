@@ -12,6 +12,7 @@ import validators from "../validators/article.js";
 import paginate from "../utils/pagination.js";
 import articleSearch from "../utils/articleSearch.js";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
+import { Comment } from "./../models/comment.js";
 
 export default {
   getAllArticles: async (req, res, next) => {
@@ -208,6 +209,7 @@ export default {
       const path = join("public", "articleImages", image);
       await fs.unlink(path);
     }
+    await Comment.deleteMany({ article: article._id });
     await article.deleteOne();
     res.status(204).end();
   },

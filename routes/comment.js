@@ -5,12 +5,17 @@ import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import getComment from "../middlewares/comment/getComment.js";
 import hasAccessByOwning from "../middlewares/auth/hasAccessByOwning.js";
 import hasAccessByAdminOrOwner from "../middlewares/auth/hasAccessByAdminOrOwner.js";
+import hasAccessByRole from "../middlewares/auth/hasAccessByRole.js";
 
 const router = express.Router();
 
 router.param("commentId", getComment);
 
-// router.get("", asyncMiddleware(controllers.getAllArticles));
+router.get(
+  "",
+  [checkSessionValidity, hasAccessByRole(["admin"])],
+  asyncMiddleware(controllers.getAllComments)
+);
 router.get(
   "/my-comments",
   checkSessionValidity,

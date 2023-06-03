@@ -7,11 +7,30 @@ import resizeUserAvatar from "../utils/resizeImage/resizeUserAvatar.js";
 import { Article } from "../models/article.js";
 import articleRemover from "../utils/articleRemover.js";
 import { Comment } from "../models/comment.js";
+import userSearch from "../utils/userSearch.js";
 
 export default {
   getAllUsers: async (req, res, next) => {
-    const users = await User.find();
-    res.send(users);
+    let { page, pageSize, search } = req.query;
+    let query;
+    if (!!search) {
+      query = userSearch(search);
+    } else {
+      query = User.find().select("-__v -password");
+    }
+    const queryCopy = query.clone();
+    const total = (await queryCopy.exec()).length;
+    if (!!page && !!pageSize) {
+      query = paginate(query, page, pageSize);
+    }
+    const users = await query.sort({ createdAt: -1 }).exec();
+    res.json({
+      total,
+      page: Math.max(1, parseInt(page) || 1),
+      data: users,
+    });
+    // const users = await User.find();
+    // res.send(users);
   },
   getUserById: (req, res, next) => {
     res.send(res.locals.user);

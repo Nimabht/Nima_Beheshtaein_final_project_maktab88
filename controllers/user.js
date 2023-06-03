@@ -70,9 +70,14 @@ export default {
       await articleRemover(article._id);
     }
     await Comment.deleteMany({ user: user._id });
+    if (
+      user.avatarFileName !== "male-anonymous.png" &&
+      user.avatarFileName !== "female-anonymous.png"
+    ) {
+      const path = join("public", "avatars", user.avatarFileName);
+      await fs.unlink(path);
+    }
 
-    const path = join("public", "avatars", user.avatarFileName);
-    await fs.unlink(path);
     await user.deleteOne();
     res.status(204).end();
   },

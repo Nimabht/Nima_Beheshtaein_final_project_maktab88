@@ -10,6 +10,10 @@ export default {
     delete filteredComment.__v;
     res.send(filteredComment);
   },
+  getAllComments: async (req, res, next) => {
+    let comments = await Comment.find();
+    res.send(comments);
+  },
   getAllUserComments: async (req, res, next) => {
     const userId = req.session.user._id;
     let comments = await Comment.find({ user: userId });

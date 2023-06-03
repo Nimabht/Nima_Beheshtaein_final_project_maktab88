@@ -13,6 +13,7 @@ import paginate from "../utils/pagination.js";
 import articleSearch from "../utils/articleSearch.js";
 // const __dirname = dirname(fileURLToPath(import.meta.url));
 import { Comment } from "./../models/comment.js";
+import articleRemover from "../utils/articleRemover.js";
 
 export default {
   getAllArticles: async (req, res, next) => {
@@ -203,14 +204,7 @@ export default {
 
   deleteArticle: async (req, res, next) => {
     const article = res.locals.article;
-    const path = join("public", "thumbnails", article.thumbnailFileName);
-    await fs.unlink(path);
-    for (const image of article.imageFileNames) {
-      const path = join("public", "articleImages", image);
-      await fs.unlink(path);
-    }
-    await Comment.deleteMany({ article: article._id });
-    await article.deleteOne();
+    await articleRemover(article._id);
     res.status(204).end();
   },
 };

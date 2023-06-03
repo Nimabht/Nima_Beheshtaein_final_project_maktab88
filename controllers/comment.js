@@ -11,7 +11,9 @@ export default {
     res.send(filteredComment);
   },
   getAllComments: async (req, res, next) => {
-    let comments = await Comment.find();
+    let comments = await Comment.find()
+      .populate("article", " _id title ")
+      .populate("user", "_id firstname lastname");
     res.send(comments);
   },
   getAllUserComments: async (req, res, next) => {

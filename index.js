@@ -4,6 +4,7 @@ import apiRouter from "./routes/api.js";
 import index from "./routes/viewPages.js";
 import session from "express-session";
 import notFound from "./middlewares/notFound.js";
+import adminViewPages from "./routes/adminViewPages.js";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.get("/isConnect", (req, res, next) => {
 
 app.use("/api", apiRouter);
 app.use("/", index);
+app.use("/admin", adminViewPages);
 //FIXME: app unauthorized page
 app.use(notFound);
 app.use(globalErrorHandler);

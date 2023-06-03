@@ -4,6 +4,9 @@ import AppError from "../utils/AppError.js";
 import { join, basename } from "node:path";
 import fs from "node:fs/promises";
 import resizeUserAvatar from "../utils/resizeImage/resizeUserAvatar.js";
+import { Article } from "../models/article.js";
+import articleRemover from "../utils/articleRemover.js";
+import { Comment } from "../models/comment.js";
 
 export default {
   getAllUsers: async (req, res, next) => {
@@ -62,6 +65,12 @@ export default {
   },
   deleteUser: async (req, res, next) => {
     const user = res.locals.user;
+    const userArticles = await Article.find({ author: user._id });
+    for (const article of userArticles) {
+      await articleRemover(article._id);
+    }
+    await Comment.deleteMany({ user: user._id });
+
     const path = join("public", "avatars", user.avatarFileName);
     await fs.unlink(path);
     await user.deleteOne();

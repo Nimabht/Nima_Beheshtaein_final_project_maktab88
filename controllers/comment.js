@@ -3,6 +3,7 @@ import AppError from "../utils/AppError.js";
 import { Article } from "../models/article.js";
 import { Comment } from "../models/comment.js";
 import validators from "../validators/comment.js";
+import paginate from "../utils/pagination.js";
 
 export default {
   getCommentById: (req, res, next) => {
@@ -11,10 +12,27 @@ export default {
     res.send(filteredComment);
   },
   getAllComments: async (req, res, next) => {
-    let comments = await Comment.find()
+    let { page, pageSize } = req.query;
+    let query = Comment.find()
       .populate("article", " _id title ")
       .populate("user", "_id firstname lastname");
-    res.send(comments);
+
+    const queryCopy = query.clone();
+    const total = (await queryCopy.exec()).length;
+    if (!!page && !!pageSize) {
+      query = paginate(query, page, pageSize);
+    }
+    const comments = await query.sort({ createdAt: -1 }).exec();
+
+    res.json({
+      total,
+      page: Math.max(1, parseInt(page) || 1),
+      data: comments,
+    });
+    // let comments = await Comment.find()
+    //   .populate("article", " _id title ")
+    //   .populate("user", "_id firstname lastname");
+    // res.send(comments);
   },
   getAllUserComments: async (req, res, next) => {
     const userId = req.session.user._id;

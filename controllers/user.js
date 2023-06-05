@@ -8,6 +8,7 @@ import { Article } from "../models/article.js";
 import articleRemover from "../utils/articleRemover.js";
 import { Comment } from "../models/comment.js";
 import userSearch from "../utils/userSearch.js";
+import paginate from "../utils/pagination.js";
 
 export default {
   getAllUsers: async (req, res, next) => {

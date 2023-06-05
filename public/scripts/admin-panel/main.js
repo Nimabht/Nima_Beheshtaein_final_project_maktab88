@@ -4,5 +4,5 @@ $(async () => {
   result = await axios.get("/api/article");
   $("#total-article-out").text(result.data.total);
   result = await axios.get("/api/comment");
-  $("#total-comment-out").text(result.data.length);
+  $("#total-comment-out").text(result.data.total);
 });

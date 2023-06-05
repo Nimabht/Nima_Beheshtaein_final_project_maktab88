@@ -7,21 +7,15 @@ import hasAccessByRole from "../middlewares/auth/hasAccessByRole.js";
 
 const router = express.Router();
 
-router.get(
-  "/",
-  [checkSessionValidity, hasAccessByRole(["admin"])],
-  (req, res, next) => {
-    res.render("admin-panel");
-  }
-);
+router.use([checkSessionValidity, hasAccessByRole(["admin"])]);
 
-router.get(
-  "/users",
-  [checkSessionValidity, hasAccessByRole(["admin"])],
-  (req, res, next) => {
-    res.render("admin-panel-users");
-  }
-);
+router.get("/", (req, res, next) => {
+  res.render("admin-panel");
+});
+
+router.get("/users", (req, res, next) => {
+  res.render("admin-panel-users");
+});
 
 // router.get("/signup", (req, res, next) => {
 //   if (req.session && req.session.user) {

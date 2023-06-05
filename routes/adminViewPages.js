@@ -21,6 +21,10 @@ router.get("/articles", (req, res, next) => {
   res.render("admin-panel-articles");
 });
 
+router.get("/comments", (req, res, next) => {
+  res.render("admin-panel-comments");
+});
+
 // router.get("/signup", (req, res, next) => {
 //   if (req.session && req.session.user) {
 //     // if the user is logged in, redirect to the dashboard

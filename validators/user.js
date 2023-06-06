@@ -24,10 +24,13 @@ export default {
         "string.max": "Username must be at most {#limit} characters long",
         "any.required": "Username is required",
       }),
-      gender: Joi.string().valid("male", "female").default("not-set").messages({
-        "string.base": "Gender must be a string",
-        "any.only": "Gender should be either male, female",
-      }),
+      gender: Joi.string()
+        .valid("male", "female", "not-set")
+        .default("not-set")
+        .messages({
+          "string.base": "Gender must be a string",
+          "any.only": "Gender should be either male, female",
+        }),
       phoneNumber: Joi.forbidden().messages({
         "any.forbidden": `"role" field is not allowed in this request`,
       }),

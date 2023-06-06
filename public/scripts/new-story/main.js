@@ -95,7 +95,6 @@ $("#submit-btn").on("click", async () => {
 
   try {
     const response = await axios.post("/api/article", formData);
-    console.log(response);
     polipop.add({
       type: "success",
       title: "Success",

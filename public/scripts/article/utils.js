@@ -44,8 +44,6 @@ function formatDate(dateString) {
 }
 
 const renderComments = async () => {
-  // console.log(viewerId);
-  // console.log(viewerRole);
   const response = await axios.get(`/api/article/${articleId}`);
   const { comments } = response.data;
   $("#comments").empty();

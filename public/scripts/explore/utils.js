@@ -130,7 +130,6 @@ const renderContainer = async (
 $("#search-form").on("submit", async (e) => {
   e.preventDefault();
   const searchQuery = $("#default-search").val();
-  console.log(searchQuery);
   const response = await axios.get(
     `/api/article?page=1&pageSize=4&search=${searchQuery}`
   );

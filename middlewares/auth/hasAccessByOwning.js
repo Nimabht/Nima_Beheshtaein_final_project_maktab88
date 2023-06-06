@@ -9,7 +9,6 @@ export default (req, res, next) => {
   } else if (!!res.locals.comment) {
     userIdInModel = res.locals.comment.user._id.toString();
   } else if (!!res.locals.user) {
-    console.log(res.locals.user);
     userIdInModel = res.locals.user._id.toString();
   }
 

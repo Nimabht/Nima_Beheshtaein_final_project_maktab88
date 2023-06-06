@@ -5,7 +5,6 @@ const response = axios
     renderTable(data, total, page);
   })
   .catch((error) => {
-    console.log(error);
     polipop.add({
       type: "error",
       title: "Error",

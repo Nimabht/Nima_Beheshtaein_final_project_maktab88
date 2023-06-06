@@ -133,7 +133,6 @@ $("#submit-btn").on("click", async () => {
     });
     window.location.href = `/article/${articleId}`;
   } catch (error) {
-    console.log(error);
     polipop.add({
       type: "error",
       title: "Error",

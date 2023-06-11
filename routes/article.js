@@ -1,4 +1,4 @@
-import controllers from "../controllers/article.js";
+import articleController from "../controllers/article.js";
 import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import getArticle from "../middlewares/article/getArticle.js";
@@ -12,33 +12,33 @@ const router = express.Router();
 
 router.param("articleId", getArticle);
 
-router.get("", asyncMiddleware(controllers.getAllArticles));
+router.get("", asyncMiddleware(articleController.getAllArticles));
 router.get(
   "/my-articles",
   checkSessionValidity,
-  asyncMiddleware(controllers.getAllUserArticles)
+  asyncMiddleware(articleController.getAllUserArticles)
 );
 router.get(
   "/:articleId",
   countArticleView,
-  asyncMiddleware(controllers.getArticleById)
+  asyncMiddleware(articleController.getArticleById)
 );
 router.post(
   "/",
   [checkSessionValidity, uploadThumbnail.single("thumbnail")],
-  asyncMiddleware(controllers.createArticle)
+  asyncMiddleware(articleController.createArticle)
 );
 
 router.put(
   "/:articleId",
   [checkSessionValidity, hasAccessByOwning],
-  asyncMiddleware(controllers.updateArticle)
+  asyncMiddleware(articleController.updateArticle)
 );
 
 router.delete(
   "/:articleId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
-  asyncMiddleware(controllers.deleteArticle)
+  asyncMiddleware(articleController.deleteArticle)
 );
 router.patch(
   "/update-thumbnail/:articleId",
@@ -47,12 +47,12 @@ router.patch(
     hasAccessByOwning,
     uploadThumbnail.single("thumbnail"),
   ],
-  asyncMiddleware(controllers.updateArticleThumbnail)
+  asyncMiddleware(articleController.updateArticleThumbnail)
 );
 
 router.post(
   "/uploadImage",
   [checkSessionValidity, uploadImage.single("image")],
-  asyncMiddleware(controllers.uploadArticleImage)
+  asyncMiddleware(articleController.uploadArticleImage)
 );
 export default router;

@@ -1,4 +1,4 @@
-import controllers from "../controllers/comment.js";
+import commentController from "../controllers/comment.js";
 import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
@@ -14,30 +14,30 @@ router.param("commentId", getComment);
 router.get(
   "",
   [checkSessionValidity, hasAccessByRole(["admin"])],
-  asyncMiddleware(controllers.getAllComments)
+  asyncMiddleware(commentController.getAllComments)
 );
 router.get(
   "/my-comments",
   checkSessionValidity,
-  asyncMiddleware(controllers.getAllUserComments)
+  asyncMiddleware(commentController.getAllUserComments)
 );
-router.get("/:commentId", asyncMiddleware(controllers.getCommentById));
+router.get("/:commentId", asyncMiddleware(commentController.getCommentById));
 router.post(
   "/",
   checkSessionValidity,
-  asyncMiddleware(controllers.createComment)
+  asyncMiddleware(commentController.createComment)
 );
 
 router.put(
   "/:commentId",
   [checkSessionValidity, hasAccessByOwning],
-  asyncMiddleware(controllers.updateComment)
+  asyncMiddleware(commentController.updateComment)
 );
 
 router.delete(
   "/:commentId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
-  asyncMiddleware(controllers.deleteComment)
+  asyncMiddleware(commentController.deleteComment)
 );
 // router.patch(
 //   "/update-thumbnail/:articleId",

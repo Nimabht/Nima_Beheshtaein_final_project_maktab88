@@ -1,4 +1,4 @@
-import controllers from "../controllers/user.js";
+import userController from "../controllers/user.js";
 import express from "express";
 import asyncMiddleware from "../middlewares/async.js";
 import getUser from "../middlewares/user/getUser.js";
@@ -14,28 +14,28 @@ router.param("userId", getUser);
 router.get(
   "",
   [checkSessionValidity, hasAccessByRole(["admin"])],
-  asyncMiddleware(controllers.getAllUsers)
+  asyncMiddleware(userController.getAllUsers)
 );
 router.get(
   "/:userId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
-  asyncMiddleware(controllers.getUserById)
+  asyncMiddleware(userController.getUserById)
 );
 
 router.put(
   "/:userId",
   [checkSessionValidity, hasAccessByOwning],
-  asyncMiddleware(controllers.updateUser)
+  asyncMiddleware(userController.updateUser)
 );
 router.delete(
   "/:userId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
-  asyncMiddleware(controllers.deleteUser)
+  asyncMiddleware(userController.deleteUser)
 );
 router.patch(
   "/update-avatar/:userId",
   [checkSessionValidity, hasAccessByOwning, uploadAvatar.single("avatar")],
-  asyncMiddleware(controllers.updateUserAvatar)
+  asyncMiddleware(userController.updateUserAvatar)
 );
 
 export default router;

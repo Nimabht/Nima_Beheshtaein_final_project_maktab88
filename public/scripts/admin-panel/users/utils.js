@@ -38,11 +38,6 @@ const renderTable = async (users, totalUsers, currentPage, searchQuery) => {
                 <div class="flex items-center">${phoneNumber}</div>
               </td>
               <td class="px-6 py-4">
-                <a
-                  href="/admin/user/${_id}"
-                  class="block font-medium text-blue-600 hover:underline"
-                  >User data</a
-                >
                 <button type="button" class="font-medium text-red-600 hover:underline inline-block bg-transparent border-0" onclick="deleteUser('${_id}')">
                   Delete user
                 </button>

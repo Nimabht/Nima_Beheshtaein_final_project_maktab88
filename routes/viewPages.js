@@ -93,6 +93,10 @@ router.get("/my-articles", checkSessionValidity, async (req, res, next) => {
   });
 });
 
+router.get("/", async (req, res, next) => {
+  res.redirect("/explore");
+});
+
 router.get("/explore", async (req, res, next) => {
   let isLoggedIn = false;
   if (!!req.session.user) {

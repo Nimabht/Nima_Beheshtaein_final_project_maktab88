@@ -114,14 +114,30 @@
           <div class="border-t border-slate-600 pt-9">
             <div id="editorjs"></div>
           </div>
-          <div
-            class="ml-[1rem] text-end text-2xl font-bold <% if (!isOwner) { %> hidden <% } %>">
+          <div class="ml-[1rem] text-end text-2xl font-bold">
+            <% if (isOwner) { %>
             <a id="edit-url" class="text-sky-400" href="">Modify</a>
             <button
               id="delete-btn"
               class="text-red-600 bg-transparent border-none cursor-pointer">
               Delete
             </button>
+            <% } else if(user?.role==="admin") { %>
+            <a id="edit-url" class="text-sky-400 hidden" href="">Modify</a>
+            <button
+              id="delete-btn"
+              class="text-red-600 bg-transparent border-none cursor-pointer">
+              Delete
+            </button>
+            <% }else { %><a id="edit-url" class="text-sky-400 hidden" href=""
+              >Modify</a
+            >
+            <button
+              id="delete-btn"
+              class="text-red-600 bg-transparent border-none cursor-pointer hidden">
+              Delete
+            </button>
+            <% } %>
           </div>
           <!-- drawer init and show -->
           <div class="mt-5 ml-10">

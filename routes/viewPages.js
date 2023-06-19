@@ -3,8 +3,11 @@ import checkSessionValidity from "../middlewares/auth/checkSessionValidity.js";
 import { User } from "../models/user.js";
 import { Article } from "../models/article.js";
 import AppError from "../utils/AppError.js";
+import { access } from "node:fs/promises";
 import hasAccessByRole from "../middlewares/auth/hasAccessByRole.js";
+import { join } from "node:path";
 const router = express.Router();
+//FIXME: there is no try catch for server errors
 
 router.get("/signup", (req, res, next) => {
   if (req.session && req.session.user) {
@@ -25,7 +28,8 @@ router.get("/login", (req, res, next) => {
 router.get("/dashboard", checkSessionValidity, async (req, res, next) => {
   const { firstname, lastname, username, phoneNumber, role, avatarFileName } =
     await User.findById(req.session.user._id);
-
+  const userAvatarPath = join("public", "avatars", avatarFileName);
+  await access(userAvatarPath);
   const articleCount = await Article.countDocuments({
     author: req.session.user._id,
   });

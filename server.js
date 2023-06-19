@@ -1,5 +1,6 @@
 import { createServer } from "node:http";
 import checkAndCreateAdminUser from "./utils/adminSetup.js";
+import directoriesSetup from "./utils/directoriesSetup.js";
 import "./loadEnv.js";
 
 if (!!process.env.error) {
@@ -9,8 +10,8 @@ if (!!process.env.error) {
 
 import app from "./index.js";
 const server = createServer(app);
+directoriesSetup();
 checkAndCreateAdminUser();
-
 const host = "127.0.0.1";
 const port = process.env.PORT || 5050;
 

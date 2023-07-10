@@ -206,7 +206,7 @@ Request Body:
 ### Get articles that owned by user
 
 ```http
-  GET /api/my-articles
+  GET /api/article/my-articles
 ```
 
 ### Get article by ID
@@ -259,7 +259,7 @@ Request Body:
 ### Delete article by ID
 
 ```http
-  DELETE /api/user/<:articleId>
+  DELETE /api/article/<:articleId>
 ```
 
 ## Comment
@@ -273,7 +273,7 @@ Request Body:
 ### Get comments that owned by user
 
 ```http
-  GET /api/my-comments
+  GET /api/comment/my-comments
 ```
 
 ### Get comment by ID

@@ -31,17 +31,6 @@ export default {
           "string.base": "Gender must be a string",
           "any.only": "Gender should be either male, female",
         }),
-      phoneNumber: Joi.forbidden().messages({
-        "any.forbidden": `"role" field is not allowed in this request`,
-      }),
-      // phoneNumber: Joi.string()
-      //   .required()
-      //   .pattern(new RegExp("^(\\+98|0)?9\\d{9}$"))
-      //   .messages({
-      //     "string.empty": "Phone number is required",
-      //     "string.pattern.base":
-      //       "Phone number must be in Iranian format (starting with +98 or 0 and followed by 9 digits)",
-      //   }),
       role: Joi.string().valid("blogger").default("blogger").messages({
         "any.only": 'Role can only be "blogger"',
       }),

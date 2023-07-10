@@ -16,6 +16,7 @@ router.get(
   [checkSessionValidity, hasAccessByRole(["admin"])],
   asyncMiddleware(userController.getAllUsers)
 );
+
 router.get(
   "/:userId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
@@ -27,11 +28,13 @@ router.put(
   [checkSessionValidity, hasAccessByOwning],
   asyncMiddleware(userController.updateUser)
 );
+
 router.delete(
   "/:userId",
   [checkSessionValidity, hasAccessByAdminOrOwner],
   asyncMiddleware(userController.deleteUser)
 );
+
 router.patch(
   "/update-avatar/:userId",
   [checkSessionValidity, hasAccessByOwning, uploadAvatar.single("avatar")],
